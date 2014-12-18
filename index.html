@@ -1,22 +1,22 @@
 <!doctype html>
-<html>
-  <head>
-      <title>To The Moon</title>
-      <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
-      <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-      <link rel="stylesheet" type="text/css" href="css/main.css">
-      <link rel="shortcut icon" href="assets/glyphicon.png"/>
-  </head>
-  <body ng-app="app" ng-controller='coinController'>
-    <div class="well container">
-        <h2>Your wallet address:</h2>
-        <input type="text" ng-model="address.q"></input>
-        <span type="submit" class="btn btn-success" ng-click="cashout()">cash out</span>
-        <h3>Satoshis Earned: {{$scope.score.s}}</h3>
-    </div>
-    <div id="gamediv"></div>
-      <script src="js/phaser.js"></script>
-      <script src="./js/angular/angular.js"></script>
-      <script src="./js/angular/app.js"></script>
-  </body>
+<html ng-app="app">
+<head>
+    <title>To The Moon</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="shortcut icon" href="assets/glyphicon.png"/>
+</head>
+<body ng-controller='coinController'>
+<div class="well container">
+    <h2>Your wallet address:</h2>
+    <input type="text" ng-model="address.q"></input>
+    <btn type="submit" class="btn btn-success" ng-click="cashOut()">cash out</btn>
+    <h3 ng-model="score">Satoshis Earned: {{score.s}}</h3>
+</div>
+<div id="gamediv"></div>
+<script src="js/phaser.js"></script>
+<script src="./js/angular/angular.js"></script>
+<script src="./js/angular/app.js"></script>
+</body>
 </html>

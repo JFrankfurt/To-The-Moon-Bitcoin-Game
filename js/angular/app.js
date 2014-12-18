@@ -9,16 +9,19 @@ app.factory('makeCall', function($http, password, url) {
         var score = score || {};
         var address = address || {};
 
-        var params = {'api-key': apiKey,
-                      'password': password,
-                     };
-
-        angular.extend(score, params);
-        angular.extend(address, params);
-
-      return $http.get(url, {params: score, params: address
-        }).then(function(result) {
-            return result.data;
+        var params = {
+            'password': password,
+            'score': score.s,
+            'address': address.q
+        };
+        console.error(params);
+        //return $http.post(url, {params: password, params: score, params: address});
+        return $http.post(url, params).success(function(data, status, headers, config) {
+        }).error(function(data, status, headers, config) {
+            console.log('data=',data);
+            console.log('status=',status);
+            console.log('headers=',headers);
+            console.log('config=',config);
         });
     }
     return {
@@ -27,16 +30,12 @@ app.factory('makeCall', function($http, password, url) {
 });
 
 app.controller('coinController', function($scope, makeCall) {
-    $scope.score = {};
+    $scope.score = { "s": 0};
     $scope.address = {};
 
     $scope.cashOut = function() {
-        getArticles.sendCoins($scope.address, $scope.score).then(
-        function(results) {
-            $scope.results = results;
-        });
+        makeCall.sendCoins($scope.address, $scope.score);
     };
-
 var game = new Phaser.Game(800, 600, Phaser.AUTO,'phaser-example',
                            { preload: preload,
                             create: create,
@@ -205,8 +204,7 @@ function update() {
     //  Reset the player, then check for movement keys
     player.body.velocity.setTo(0, 0);
 
-    if (cursors.left.isDown)
-    {
+    if (cursors.left.isDown) {
         player.body.velocity.x = -200;
 
         if (flying != 'left') {
@@ -216,10 +214,8 @@ function update() {
                 player.animations.stop();
             }
         }
-
     }
-    else if (cursors.right.isDown)
-    {
+    else if (cursors.right.isDown) {
         player.body.velocity.x = 200;
 
         if (flying != 'right') {
@@ -281,8 +277,10 @@ function collisionHandler (bullet, alien) {
     alien.kill();
 
     //  Increase the score
-    score += 20;
-    scoreText.text = scoreString + score;
+    $scope.$apply(function() {
+        $scope.score.s += 20;
+    });
+    scoreText.text = scoreString + $scope.score.s;
 
     //  And create an explosion :)
     var explosion = explosions.getFirstExists(false);
@@ -290,11 +288,11 @@ function collisionHandler (bullet, alien) {
     explosion.play('kaboom', 30, false, true);
     enemyBulletHitSound.play();
 
-    if (aliens.countLiving() == 0)
-    {
-        score += 1000;
-        scoreText.text = scoreString + score;
-
+    if (aliens.countLiving() === 0) {
+        $scope.$apply(function() {
+            $scope.score.s += 1000;
+        });
+        scoreText.text = scoreString + $scope.score.s;
         enemyBullets.callAll('kill',this);
         stateText.text = " You Won, \n Click for next level";
         stateText.visible = true;
