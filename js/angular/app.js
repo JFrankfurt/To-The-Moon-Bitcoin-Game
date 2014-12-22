@@ -43,11 +43,11 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO,'phaser-example',
                             render: render });
 
 function preload() {
-    game.load.atlas('game', 'assets/SpriteSheet.json');
+    game.load.atlas('game', 'assets/SpriteSheet1.json');
     game.load.image('bullet', 'assets/bitcoin-mini.png');
     game.load.image('enemyBullet', 'assets/enemybullet2.jpg');
     game.load.image('invader', 'assets/aliens-from-outer-space.png');
-    game.load.spritesheet('ship', 'assets/Sprite Sheet.png', 50, 50, 5);
+    game.load.spritesheet('ship', 'assets/SpriteSheet1.png', 50, 50, 5);
     game.load.image('kaboom', 'assets/explosion3.jpg'); 
 
     game.load.audio('pew', 'assets/InvaderBullet.wav');
