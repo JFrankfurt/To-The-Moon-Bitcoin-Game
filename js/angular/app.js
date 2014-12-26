@@ -36,7 +36,7 @@ app.controller('coinController', function($scope, makeCall) {
     $scope.cashOut = function() {
         makeCall.sendCoins($scope.address, $scope.score);
     };
-var game = new Phaser.Game(800, 600, Phaser.CANVAS,'phaser-example',
+var game = new Phaser.Game(800, 600, Phaser.CANVAS,'ToTheMoon',
                            { preload: preload,
                             create: create,
                             update: update,
