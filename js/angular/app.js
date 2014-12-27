@@ -43,18 +43,17 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO,'phaser-example',
                             render: render });
 
 function preload() {
-    game.load.atlas('game', 'assets/SpriteSheet.json');
+    game.load.atlas('game', 'assets/SpriteSheet1.json');
     game.load.image('bullet', 'assets/bitcoin-mini.png');
     game.load.image('enemyBullet', 'assets/enemybullet2.jpg');
     game.load.image('invader', 'assets/aliens-from-outer-space.png');
-    game.load.spritesheet('ship', 'assets/Sprite Sheet.png', 50, 50, 5);
-    game.load.image('kaboom', 'assets/explosion3.jpg'); 
-
+    game.load.spritesheet('ship', 'assets/SpriteSheet1.png', 50, 50, 14);
+    game.load.image('kaboom', 'assets/explosion3.jpg');
     game.load.audio('pew', 'assets/InvaderBullet.wav');
     game.load.audio('pew2', 'assets/InvaderHit.wav');
     game.load.audio('playerhit', 'assets/ShipHit.wav');
 
-    
+
 }
 
 var player;
@@ -108,10 +107,10 @@ function create() {
     player.enableBody = true;
     player.physicsBodyType = Phaser.Physics.ARCADE;
     game.physics.enable(player, Phaser.Physics.ARCADE);
-    player.animations.add('left', [0, 2], 30, true);
-    player.animations.add('right', [1, 3], 30, true);
-    player.animations.add('still', [4], 0, true);
-   
+    player.animations.add('left', [9, 11], 30, true);
+    player.animations.add('right', [10, 12], 30, true);
+    player.animations.add('still', [13], 0, true);
+
 
     player.body.bounce.x = 0.5;
     player.body.collideWorldBounds = true;
@@ -210,7 +209,7 @@ function update() {
         if (flying != 'left') {
             player.animations.play('left');
             flying = 'left';
-            if (player.frame = 2) {
+            if (player.frame = 11) {
                 player.animations.stop();
             }
         }
@@ -221,7 +220,7 @@ function update() {
         if (flying != 'right') {
             player.animations.play('right');
             flying = 'right';
-            if (player.frame = 3) {
+            if (player.frame = 12) {
                 player.animations.stop();
             }
         }
@@ -231,10 +230,10 @@ function update() {
             player.animations.stop();
 
             if (flying == 'still') {
-                player.frame = 4;
+                player.frame = 13;
             }
             else {
-                player.frame = 4;
+                player.frame = 13;
             }
             flying = 'still';
         }
