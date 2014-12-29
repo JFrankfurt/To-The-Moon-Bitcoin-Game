@@ -62,18 +62,19 @@ var stateText;
 
     //bodies
     var player;
+    var alive;
     var lives;
     var flying = 'still';
     var bulletTime = 0;
     var bullets;
 
     var aliens;
-    var enemyBullet;
+    var enemyBullets;
     var firingTimer = 0;
     var livingEnemies = [];
 
     //score
-    var score;
+    var score; //Already declared earlier in angular, but repeated here for clarity.
     var scoreText;
     var scoreString = '';
 
@@ -321,11 +322,11 @@ function enemyBulletHitsPlayer (player,bullet) {
 
     bullet.kill();
 
-    live = lives.getFirstAlive();
+    alive = lives.getFirstAlive();
 
-    if (live)
+    if (alive)
     {
-        live.kill();
+        alive.kill();
     }
 
     //  And create an explosion :)
@@ -353,11 +354,11 @@ function enemyHitsPlayer (player, aliens) {
     aliens.kill();
     player.kill();
 
-    live = lives.getFirstAlive();
+    alive = lives.getFirstAlive();
 
-    if (live) 
+    if (alive)
     {
-        live.kill();
+        alive.kill();
     }
 
 
