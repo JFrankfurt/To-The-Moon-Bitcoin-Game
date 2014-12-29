@@ -53,29 +53,39 @@ function preload() {
     game.load.audio('pew', 'assets/InvaderBullet.wav');
     game.load.audio('pew2', 'assets/InvaderHit.wav');
     game.load.audio('playerhit', 'assets/ShipHit.wav');
-
-    
 }
 
-var player;
-var flying = 'still';
-var aliens;
-var bullets;
-var bulletTime = 0;
 var cursors;
 var fireButton;
 var explosions;
-var score = 0;
-var scoreString = '';
-var scoreText;
-var level = 1;
-var levelString = '';
-var levelText;
-var lives;
-var enemyBullet;
-var firingTimer = 0;
 var stateText;
-var livingEnemies = [];
+
+    //bodies
+    var player;
+    var lives;
+    var flying = 'still';
+    var bulletTime = 0;
+    var bullets;
+
+    var aliens;
+    var enemyBullet;
+    var firingTimer = 0;
+    var livingEnemies = [];
+
+    //score
+    var score;
+    var scoreText;
+    var scoreString = '';
+
+    //level
+    var level = 1;
+    var levelString = '';
+    var levelText;
+
+    //sounds
+    var enemyBulletSound;
+    var enemyBulletHitSound;
+    var playerHitSound;
 
 function create() {
 
@@ -110,7 +120,7 @@ function create() {
     game.physics.enable(player, Phaser.Physics.ARCADE);
     player.animations.add('left', [0, 2], 30, true);
     player.animations.add('right', [1, 3], 30, true);
-    player.animations.add('still', [4], 0, true);
+    player.animations.add('still', [4], 0, false);
    
 
     player.body.bounce.x = 0.5;
