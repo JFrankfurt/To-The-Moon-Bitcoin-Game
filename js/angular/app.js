@@ -72,7 +72,7 @@ var stateText;
     var livingEnemies = [];
 
     //score
-    var score; //Dont know what you did here but score is coming up as undefined when it initially loads.
+    var score = 0;
     var scoreText;
     var scoreString = '';
 
