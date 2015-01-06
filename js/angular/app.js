@@ -51,29 +51,40 @@ function preload() {
     game.load.audio('pew', 'assets/InvaderBullet.wav');
     game.load.audio('pew2', 'assets/InvaderHit.wav');
     game.load.audio('playerhit', 'assets/ShipHit.wav');
-
-
 }
 
-var player;
-var flying = 'still';
-var aliens;
-var bullets;
-var bulletTime = 0;
 var cursors;
 var fireButton;
 var explosions;
-var score = 0;
-var scoreString = '';
-var scoreText;
-var level = 1;
-var levelString = '';
-var levelText;
-var lives;
-var enemyBullet;
-var firingTimer = 0;
 var stateText;
-var livingEnemies = [];
+
+    //bodies
+    var player;
+    var alive;
+    var lives;
+    var flying = 'still';
+    var bulletTime = 0;
+    var bullets;
+
+    var aliens;
+    var enemyBullets;
+    var firingTimer = 0;
+    var livingEnemies = [];
+
+    //score
+    var score; //Dont know what you did here but score is coming up as undefined when it initially loads.
+    var scoreText;
+    var scoreString = '';
+
+    //level
+    var level = 1;
+    var levelString = '';
+    var levelText;
+
+    //sounds
+    var enemyBulletSound;
+    var enemyBulletHitSound;
+    var playerHitSound;
 
 function create() {
 
@@ -109,8 +120,6 @@ function create() {
     player.animations.add('left', [9, 11], 30, true);
     player.animations.add('right', [10, 12], 30, true);
     player.animations.add('still', [13], 0, true);
-
-
     player.body.bounce.x = 0.5;
     player.body.collideWorldBounds = true;
 
@@ -309,11 +318,11 @@ function enemyBulletHitsPlayer (player,bullet) {
 
     bullet.kill();
 
-    live = lives.getFirstAlive();
+    alive = lives.getFirstAlive();
 
-    if (live)
+    if (alive)
     {
-        live.kill();
+        alive.kill();
     }
 
     //  And create an explosion :)
@@ -341,11 +350,11 @@ function enemyHitsPlayer (player, aliens) {
     aliens.kill();
     player.kill();
 
-    live = lives.getFirstAlive();
+    alive = lives.getFirstAlive();
 
-    if (live) 
+    if (alive)
     {
-        live.kill();
+        alive.kill();
     }
 
 
