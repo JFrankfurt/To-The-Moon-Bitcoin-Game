@@ -36,18 +36,17 @@ app.controller('coinController', function($scope, makeCall) {
     $scope.cashOut = function() {
         makeCall.sendCoins($scope.address, $scope.score);
     };
-var game = new Phaser.Game(800, 600, Phaser.AUTO,'phaser-example',
+var game = new Phaser.Game(800, 600, Phaser.CANVAS,'ToTheMoon',
                            { preload: preload,
                             create: create,
                             update: update,
                             render: render });
 
 function preload() {
-    game.load.atlas('game', 'assets/SpriteSheet1.json');
+    game.load.atlasJSONHash('SpriteSheet', 'assets/SpriteSheet.png','assets/SpriteSheet.json');
     game.load.image('bullet', 'assets/bitcoin-mini.png');
     game.load.image('enemyBullet', 'assets/enemybullet2.jpg');
     game.load.image('invader', 'assets/aliens-from-outer-space.png');
-    game.load.spritesheet('ship', 'assets/SpriteSheet1.png', 50, 50, 14);
     game.load.image('kaboom', 'assets/explosion3.jpg');
     game.load.audio('pew', 'assets/InvaderBullet.wav');
     game.load.audio('pew2', 'assets/InvaderHit.wav');
@@ -102,7 +101,7 @@ function create() {
     enemyBullets.setAll('checkWorldBounds', true);
 
     //  The hero!
-    player = game.add.sprite(400, 560, 'ship');
+    player = game.add.sprite(400, 560, 'SpriteSheet', 13);
     player.anchor.setTo(0.5, 0.5);
     player.enableBody = true;
     player.physicsBodyType = Phaser.Physics.ARCADE;
@@ -146,7 +145,7 @@ function create() {
 
     for (var i = 0; i < 3; i++)
     {
-        var ship = lives.create(game.world.width - 100 + (30 * i), 60, 'ship');
+        var ship = lives.create(game.world.width - 100 + (30 * i), 60, 'SpriteSheet', 13);
         ship.anchor.setTo(0.5, 0.5);
         ship.angle = 90;
         ship.alpha = 0.4;
