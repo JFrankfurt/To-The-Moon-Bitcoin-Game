@@ -46,7 +46,6 @@ function preload() {
     game.load.atlasJSONHash('SpriteSheet', 'assets/SpriteSheet.png','assets/SpriteSheet.json');
     game.load.image('bullet', 'assets/bitcoin-mini.png');
     game.load.image('enemyBullet', 'assets/enemybullet2.jpg');
-    game.load.image('invader', 'assets/aliens-from-outer-space.png');
     game.load.image('kaboom', 'assets/explosion3.jpg');
     game.load.audio('pew', 'assets/InvaderBullet.wav');
     game.load.audio('pew2', 'assets/InvaderHit.wav');
@@ -65,8 +64,8 @@ var stateText;
     var flying = 'still';
     var bulletTime = 0;
     var bullets;
-
     var aliens;
+    var invader;
     var enemyBullets;
     var firingTimer = 0;
     var livingEnemies = [];
@@ -117,8 +116,8 @@ function create() {
     player.enableBody = true;
     player.physicsBodyType = Phaser.Physics.ARCADE;
     game.physics.enable(player, Phaser.Physics.ARCADE);
-    player.animations.add('left', [9, 11], 30, true);
-    player.animations.add('right', [10, 12], 30, true);
+    player.animations.add('left', [9, 11], 10, true);
+    player.animations.add('right', [10, 12], 10, true);
     player.animations.add('still', [13], 0, true);
     player.body.bounce.x = 0.5;
     player.body.collideWorldBounds = true;
@@ -175,9 +174,11 @@ function createAliens () {
 
     for (var y = 0; y < 4; y++) {
         for (var x = 0; x < 10; x++) {
-            var alien = aliens.create(x * 48, y * 50, 'invader');
+            var alien = aliens.create(x * 48, y * 50, 'SpriteSheet', 0);
             alien.anchor.setTo(0.5, 0.5);
             alien.body.moves = false;
+            alien.animations.add('move', [1, 2, 3, 4], 10, true)
+            alien.play('move')
         }
     }
 
