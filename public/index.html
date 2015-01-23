@@ -14,9 +14,12 @@
     <btn type="submit" class="btn btn-success" ng-click="cashOut()">cash out</btn>
     <h3 ng-model="score">Satoshis Earned: {{score.s}}</h3>
 </div>
-<div id="gamediv"></div>
+<div class="content" ui-view></div>
 <script src="bower_components/phaser/build/phaser.js"></script>
 <script src="bower_components/angular/angular.js"></script>
-<script src="scripts/app.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+<script src="scripts/ng-game.js"></script>
+<script type="text/javascript" src="scripts/menu/index.js"></script>
 </body>
 </html>
