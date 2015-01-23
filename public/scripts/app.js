@@ -29,13 +29,6 @@ app.factory('makeCall', function($http, password, url) {
     };
 });
 
-app.controller('coinController', function($scope, makeCall) {
-    $scope.score = { "s": 0};
-    $scope.address = {};
-
-    $scope.cashOut = function() {
-        makeCall.sendCoins($scope.address, $scope.score);
-    };
 var game = new Phaser.Game(800, 600, Phaser.CANVAS,'ToTheMoon',
                            { preload: preload,
                             create: create,
