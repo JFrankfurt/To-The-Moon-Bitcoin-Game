@@ -75,14 +75,14 @@ function create() {
     enemyBullets.setAll('checkWorldBounds', true);
 
     //  The hero!
-    player = game.add.sprite(400, 560, 'SpriteSheet', 13);
+    player = game.add.sprite(400, 560, 'SpriteSheet', 18);
     player.anchor.setTo(0.5, 0.5);
     player.enableBody = true;
     player.physicsBodyType = Phaser.Physics.ARCADE;
     game.physics.enable(player, Phaser.Physics.ARCADE);
-    player.animations.add('left', [9, 11], 10, true);
-    player.animations.add('right', [10, 12], 10, true);
-    player.animations.add('still', [13], 0, true);
+    player.animations.add('left', [14, 16], 10, true);
+    player.animations.add('right', [15, 17], 10, true);
+    player.animations.add('still', [18], 0, true);
     player.body.bounce.x = 0.5;
     player.body.collideWorldBounds = true;
 
@@ -108,7 +108,6 @@ function create() {
 
     //  Lives
     lives = game.add.group();
-    game.add.text(game.world.width - 100, 10, 'Lives : ', { font: '34px Arial', fill: '#fff' });
 
     //  Text
     stateText = game.add.text(game.world.centerX,game.world.centerY,' ', { font: '84px Arial', fill: '#fff' });
@@ -117,16 +116,16 @@ function create() {
 
     for (var i = 0; i < 3; i++)
     {
-        var ship = lives.create(game.world.width - 100 + (30 * i), 60, 'SpriteSheet', 13);
+        var ship = lives.create(game.world.width - 30, (150 +(-60 * i)),'SpriteSheet', 18);
         ship.anchor.setTo(0.5, 0.5);
-        ship.angle = 90;
-        ship.alpha = 0.4;
+        ship.angle = 0;
+        ship.alpha = 0.8;
     }
 
     //  An explosion pool
     explosions = game.add.group();
-    explosions.createMultiple(30, 'kaboom');
-    explosions.forEach(setupInvader, this);
+    explosions.createMultiple(9, 'SpriteSheet');
+    explosions.forEach(setupExplosion, this);
 
     //  And some controls to play the game with
     cursors = game.input.keyboard.createCursorKeys();
@@ -163,6 +162,10 @@ function setupInvader (invader) {
     invader.animations.add('kaboom');
 
 }
+function setupExplosion (explosion) {
+    explosion.animations.add('explode!', [5, 6, 7, 8, 9, 10, 11, 12, 13], 20, true);
+
+}
 
 function descend() {
 
@@ -182,7 +185,7 @@ function update() {
         if (flying != 'left') {
             player.animations.play('left');
             flying = 'left';
-            if (player.frame = 11) {
+            if (player.frame = 16) {
                 player.animations.stop();
             }
         }
@@ -193,7 +196,7 @@ function update() {
         if (flying != 'right') {
             player.animations.play('right');
             flying = 'right';
-            if (player.frame = 12) {
+            if (player.frame = 17) {
                 player.animations.stop();
             }
         }
@@ -203,10 +206,10 @@ function update() {
             player.animations.stop();
 
             if (flying == 'still') {
-                player.frame = 13;
+                player.frame = 18;
             }
             else {
-                player.frame = 13;
+                player.frame = 18;
             }
             flying = 'still';
         }
@@ -255,7 +258,7 @@ function collisionHandler (bullet, alien) {
     //  And create an explosion :)
     var explosion = explosions.getFirstExists(false);
     explosion.reset(alien.body.x, alien.body.y);
-    explosion.play('kaboom', 30, false, true);
+    explosion.play('explode!', 30, false, true);
     enemyBulletHitSound.play();
 
     if (aliens.countLiving() === 0) {
@@ -291,7 +294,7 @@ function enemyBulletHitsPlayer (player,bullet) {
     //  And create an explosion :)
     var explosion = explosions.getFirstExists(false);
     explosion.reset(player.body.x, player.body.y);
-    explosion.play('kaboom', 30, false, true);
+    explosion.play('explode!', 30, false, true);
     playerHitSound.play();
 
     // When the player dies
@@ -324,7 +327,7 @@ function enemyHitsPlayer (player, aliens) {
     //  And create an explosion :)
     var explosion = explosions.getFirstExists(false);
     explosion.reset(player.body.x, player.body.y);
-    explosion.play('kaboom', 30, false, true);
+    explosion.play('explode!', 30, false, true);
     playerHitSound.play();
 
 
