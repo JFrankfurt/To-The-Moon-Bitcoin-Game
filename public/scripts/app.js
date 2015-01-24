@@ -1,7 +1,7 @@
 var app = angular.module("app", []);
 
-var gameW = window.innerWidth - 50;
-var gameH = window.innerHeight - 50;
+var gameW = 1200;
+var gameH = 900;
 
 var game = new Phaser.Game(gameW, gameH, Phaser.CANVAS,'ToTheMoon',
                            { preload: preload,
@@ -112,7 +112,7 @@ function create() {
     //  Lives
     lives = game.add.group();
 
-    //  Text
+    //Text
     stateText = game.add.text(game.world.centerX,game.world.centerY,' ', { font: '84px Arial', fill: '#fff' });
     stateText.anchor.setTo(0.5, 0.5);
     stateText.visible = false;
@@ -133,7 +133,6 @@ function create() {
     //  And some controls to play the game with
     cursors = game.input.keyboard.createCursorKeys();
     fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
 }
 
 function createAliens () {
