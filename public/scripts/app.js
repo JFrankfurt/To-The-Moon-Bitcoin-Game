@@ -1,6 +1,9 @@
 var app = angular.module("app", []);
 
-var game = new Phaser.Game(800, 600, Phaser.CANVAS,'ToTheMoon',
+var gameW = window.innerWidth - 50;
+var gameH = window.innerHeight - 50;
+
+var game = new Phaser.Game(gameW, gameH, Phaser.CANVAS,'ToTheMoon',
                            { preload: preload,
                             create: create,
                             update: update,
