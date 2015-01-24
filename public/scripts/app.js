@@ -1,13 +1,10 @@
 var app = angular.module("app", []);
 
-var gameW = 1200;
-var gameH = 900;
-
-var game = new Phaser.Game(gameW, gameH, Phaser.CANVAS,'ToTheMoon',
+var game = new Phaser.Game('95%', '95%', Phaser.CANVAS,'ToTheMoon',
                            { preload: preload,
-                            create: create,
-                            update: update,
-                            render: render });
+                             create : create,
+                             update : update,
+                             render : render });
 
 function preload() {
     game.load.atlasJSONHash('SpriteSheet', 'assets/SpriteSheet.png','assets/SpriteSheet.json');
