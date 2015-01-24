@@ -1,34 +1,5 @@
 var app = angular.module("app", []);
 
-app.constant('url', 'https://blockchain.info/merchant/7c8a6d55-b2e3-460e-bef6-4c10fcbbad2a/payment?');
-app.constant('password', 'password');
-
-app.factory('makeCall', function($http, password, url) {
-    function _sendCoins(address, score) {
-
-        var score = score || {};
-        var address = address || {};
-
-        var params = {
-            'password': password,
-            'score': score.s,
-            'address': address.q
-        };
-        console.error(params);
-        //return $http.post(url, {params: password, params: score, params: address});
-        return $http.post(url, params).success(function(data, status, headers, config) {
-        }).error(function(data, status, headers, config) {
-            console.log('data=',data);
-            console.log('status=',status);
-            console.log('headers=',headers);
-            console.log('config=',config);
-        });
-    }
-    return {
-        sendCoins: _sendCoins
-    };
-});
-
 var game = new Phaser.Game(800, 600, Phaser.CANVAS,'ToTheMoon',
                            { preload: preload,
                             create: create,
@@ -277,11 +248,9 @@ function collisionHandler (bullet, alien) {
     bullet.kill();
     alien.kill();
 
-    //  Increase the score
-    $scope.$apply(function() {
-        $scope.score.s += 20;
-    });
-    scoreText.text = scoreString + $scope.score.s;
+    score += 10;
+
+    scoreText.text = scoreString + score;
 
     //  And create an explosion :)
     var explosion = explosions.getFirstExists(false);
@@ -290,10 +259,10 @@ function collisionHandler (bullet, alien) {
     enemyBulletHitSound.play();
 
     if (aliens.countLiving() === 0) {
-        $scope.$apply(function() {
-            $scope.score.s += 1000;
-        });
-        scoreText.text = scoreString + $scope.score.s;
+
+        score += 1000;
+
+        scoreText.text = scoreString + score;
         enemyBullets.callAll('kill',this);
         stateText.text = " You Won, \n Click for next level";
         stateText.visible = true;
@@ -459,4 +428,3 @@ function restart () {
     //hides the text
     stateText.visible = false;
 }
-});
