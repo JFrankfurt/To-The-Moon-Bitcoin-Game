@@ -18,5 +18,8 @@
   "homepage": "https://github.com/JFrankfurt/Faucet",
   "dependencies": {
     "express": "^4.10.6"
+  },
+  "engines": {
+    "node": "0.10.33"
   }
 }
