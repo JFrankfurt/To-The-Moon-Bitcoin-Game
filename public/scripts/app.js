@@ -3,8 +3,7 @@ var app = angular.module("app", []);
 var game = new Phaser.Game('95%', '95%', Phaser.CANVAS,'ToTheMoon',
                            { preload: preload,
                              create : create,
-                             update : update,
-                             render : render });
+                             update : update});
 
 function preload() {
     game.load.atlasJSONHash('SpriteSheet', 'assets/SpriteSheet.png','assets/SpriteSheet.json');
@@ -20,6 +19,7 @@ var cursors;
 var fireButton;
 var explosions;
 var stateText;
+var restartButton;
 
     //bodies
     var player;
@@ -90,6 +90,7 @@ function create() {
     aliens = game.add.group();
     aliens.enableBody = true;
     aliens.physicsBodyType = Phaser.Physics.ARCADE;
+    animateAliens();
 
     createAliens();
 
@@ -130,6 +131,7 @@ function create() {
     //  And some controls to play the game with
     cursors = game.input.keyboard.createCursorKeys();
     fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    restartButton = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 }
 
 function createAliens () {
@@ -148,11 +150,17 @@ function createAliens () {
     aliens.y = 50;
 
     //  All this does is basically start the invaders moving. Notice we're moving the Group they belong to, rather than the invaders directly.
-    var tween = game.add.tween(aliens).to( { x: 200 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
+        var tween = game.add.tween(aliens).to({x: 200}, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
 
-    //  When the tween loops it calls descend
+        //  When the tween loops it calls descend
+        tween.onLoop.add(descend, this);
+
+}
+function animateAliens () {
+    var tween = game.add.tween(aliens).to( { x: 308 }, 2500, Phaser.Easing.Sinusoidal.InOut, true, 0, 1000, true);
     tween.onLoop.add(descend, this);
 }
+
 
 function setupInvader (invader) {
 
@@ -220,6 +228,10 @@ function update() {
     if (game.time.now > firingTimer) {
         enemyFires();
     }
+    //restart button
+    if (restartButton.isDown && lives.countLiving() == 0) {
+        restart();
+    }
 
     //  Run collision
     game.physics.arcade.overlap(bullets, aliens, collisionHandler, null, this);
@@ -227,16 +239,6 @@ function update() {
     game.physics.arcade.overlap(aliens, player, enemyHitsPlayer, null, this);
 
 
-
-}
-
-
-function render() {
-
-    // for (var i = 0; i < aliens.length; i++)
-    // {
-    //     game.debug.body(aliens.children[i]);
-    // }
 
 }
 
@@ -298,12 +300,7 @@ function enemyBulletHitsPlayer (player,bullet) {
         player.kill();
         enemyBullets.callAll('kill');
 
-        stateText.text=" GAME OVER \n Click to restart";
-        stateText.visible = true;
-        
-
-        //the "click to restart" handler
-        game.input.onTap.addOnce(restart,this);
+        gameOver();
     }
 
 }
@@ -332,11 +329,10 @@ function enemyHitsPlayer (player, aliens) {
         player.kill();
         
 
-        stateText.text= "GAME OVER \n Click to restart";
-        stateText.visible = true;
 
-        //the "click to restart" handler
-        game.input.onTap.addOnce(restart,this);
+
+        gameOver();
+
     }
     if (lives.countLiving() > 0)
     {
@@ -376,7 +372,6 @@ function enemyFires () {
     }
 
 }
-
 function fireBullet () {
 
     //  To avoid them being allowed to fire too fast we set a time limit
@@ -390,10 +385,14 @@ function fireBullet () {
             //  And fire it
             bullet.reset(player.x, player.y + 8);
             bullet.body.velocity.y = -400;
-            bulletTime = game.time.now + 200;
+            bulletTime = game.time.now + 400;
         }
     }
 
+}
+function gameOver () {
+    stateText.text= "GAME OVER \n Enter to restart";
+    stateText.visible = true;
 }
 
 function resetBullet (bullet) {
@@ -408,6 +407,10 @@ function resetAliens (alien) {
     alien.kill();
         
             }
+function restartWave () {
+    aliens.removeAll();
+    createAliens();
+}
 
 function restart () {
 
@@ -422,6 +425,7 @@ function restart () {
 
     //revives the player
     player.revive();
+
 
     //hides the text
     stateText.visible = false;
