@@ -20,6 +20,7 @@ var cursors;
 var fireButton;
 var explosions;
 var stateText;
+var buttonReset;
 
     //bodies
     var player;
@@ -130,6 +131,7 @@ function create() {
     //  And some controls to play the game with
     cursors = game.input.keyboard.createCursorKeys();
     fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    buttonReset = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 }
 
 function createAliens () {
@@ -220,6 +222,9 @@ function update() {
     if (game.time.now > firingTimer) {
         enemyFires();
     }
+    if (buttonReset.isDown && lives.countLiving() == 0) {
+        restart();
+    }
 
     //  Run collision
     game.physics.arcade.overlap(bullets, aliens, collisionHandler, null, this);
@@ -298,12 +303,7 @@ function enemyBulletHitsPlayer (player,bullet) {
         player.kill();
         enemyBullets.callAll('kill');
 
-        stateText.text=" GAME OVER \n Click to restart";
-        stateText.visible = true;
-        
-
-        //the "click to restart" handler
-        game.input.onTap.addOnce(restart,this);
+        gameOver();
     }
 
 }
@@ -332,11 +332,7 @@ function enemyHitsPlayer (player, aliens) {
         player.kill();
         
 
-        stateText.text= "GAME OVER \n Click to restart";
-        stateText.visible = true;
-
-        //the "click to restart" handler
-        game.input.onTap.addOnce(restart,this);
+        gameOver();
     }
     if (lives.countLiving() > 0)
     {
@@ -408,6 +404,10 @@ function resetAliens (alien) {
     alien.kill();
         
             }
+function gameOver () {
+    stateText.text=" GAME OVER \n Enter to restart";
+    stateText.visible = true;
+}
 
 function restart () {
 
