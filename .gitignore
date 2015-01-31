@@ -16,8 +16,9 @@ coverage
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
-#this weird .idea folder... Gotta figure out what that's doing here. Express maybe?
+#weird stuff I don't understand
 .idea
+.DS_Store
 
 # node-waf configuration
 .lock-wscript
@@ -27,4 +28,4 @@ build/Release
 
 # Dependency directory
 node_modules
-bower_components
+public/bower_components
