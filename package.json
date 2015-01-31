@@ -17,10 +17,11 @@
   },
   "homepage": "https://github.com/JFrankfurt/Faucet",
   "dependencies": {
-    "express": "^4.10.6"
+    "express": "^4.10.6",
+    "request": "^2.51.0"
   },
   "engines": {
     "npm": "2.1.x",
-    "node": "0.10.x"
+    "iojs": "1.0.x"
   }
 }
