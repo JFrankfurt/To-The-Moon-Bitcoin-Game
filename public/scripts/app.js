@@ -1,4 +1,4 @@
-var app = angular.module("app", []);
+angular.module("app", []);
 
 var game = new Phaser.Game('95%', '95%', Phaser.CANVAS,'ToTheMoon',
                            { preload: preload,
