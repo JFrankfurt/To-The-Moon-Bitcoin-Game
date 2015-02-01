@@ -9,6 +9,6 @@ var app = angular.module("MoonBase", [])
     .directive("myMenu", function () {
         return {
             restrict: "E",
-            template: "./partials/satoshiMenu.html"
-        }
+            templateUrl: "partials/satoshiMenu.html"
+        };
     });
