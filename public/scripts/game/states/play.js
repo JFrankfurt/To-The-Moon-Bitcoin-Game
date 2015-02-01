@@ -39,6 +39,10 @@ Play.prototype = {
 
     create: function () {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
+        this.background = this.game.add.tileSprite(0, 0, this.world.width, this.world.height, 'background');
+        this.background.autoScroll(-50, -20);
+        this.background.tilePosition.x = 0;
+        this.background.tilePosition.y = 0;
 
 
         //  Our bullet group

@@ -7,5 +7,3 @@ Boot.prototype = {
         this.game.state.start("Preload");
     }
 };
-
-
