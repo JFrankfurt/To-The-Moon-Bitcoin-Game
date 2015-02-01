@@ -31,7 +31,7 @@ if (cluster.isMaster) {
             }
             try {
                 result = JSON.parse(body);
-                result.total.balance;
+                response.pipe(result.total.balance);
             } catch (error) {
                 console.log(error);
             }
