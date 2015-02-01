@@ -6,6 +6,7 @@ Mainmenu.prototype = {
             font: '84px Arial',
             fill: '#fff'
         });
+        stateText.anchor.setTo(0.5, 0.5);
         var playButton = this.game.add.button(300, 300, "Start", this.startGame, this);
         this.title();
     },

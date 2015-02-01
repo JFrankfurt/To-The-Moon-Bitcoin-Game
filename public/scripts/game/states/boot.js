@@ -1,5 +1,4 @@
-function Boot(game){
-};
+function Boot(game){}
 
 Boot.prototype = {
     preload: function(){
