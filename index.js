@@ -1,8 +1,11 @@
-var cluster = require('cluster');
-var numCPUs = require('os').cpus().length;
-var request = require('request');
-var express = require('express');
-var app = express();
+var cluster = require('cluster'),
+    numCPUs = require('os').cpus().length;
+
+var request = require('request'),
+    qs = require('querystring');
+
+var express = require('express'),
+    app = express();
 
 if (cluster.isMaster) {
     for (var i = 0; i < numCPUs; i++) {
@@ -14,16 +17,26 @@ if (cluster.isMaster) {
     });
 } else {
     app.use(express.static(__dirname + '/public'));
-    app.use(function(request, response, next) {
-        next();
+    app.use(function(req, res, next) {
     });
     app.get('/balance', function(request, response) {
 
     });
     app.get('/endGame/:address', function(request, response){
-        response.send(
-            //respond with the number of satoshis this wallet has claimed from our service
-        );
+            //respond with the number of satoshis this wallet has claimed from our service (currently just does balance)
+        var query = qs.stringify(request.param("address"));
+        request.get('http://api.coinding.com/bitcoin/address' + query, function(err, response, body){
+            if(err || response.statusCode !== 200) {
+                return callback(new Error(err ? err : response.statusCode));
+            }
+            try {
+                result = JSON.parse(body);
+                result.total.balance;
+            } catch (error) {
+                console.log(error);
+            }
+        });
+        next();
     });
     app.post('/endGame/:address/:ammount', function(request, response) {
         response.send(
