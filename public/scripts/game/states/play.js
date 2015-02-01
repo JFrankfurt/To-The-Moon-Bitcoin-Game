@@ -4,7 +4,7 @@ function Play(game) {}
     var explosions;
     var stateText;
     var restartButton;
-var nextLevelButton;
+    var nextLevelButton;
 
 
 //bodies
@@ -34,6 +34,7 @@ var nextLevelButton;
     var enemyBulletSound;
     var enemyBulletHitSound;
     var playerHitSound;
+
 
 Play.prototype = {
 

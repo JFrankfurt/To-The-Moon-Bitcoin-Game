@@ -1,5 +1,6 @@
 function Mainmenu(game){}
 var stateText;
+var gameMusic;
 Mainmenu.prototype = {
     create: function(){
         this.background = this.game.add.tileSprite(0, 0, this.world.width, this.world.height, 'background');
@@ -14,6 +15,8 @@ Mainmenu.prototype = {
         stateText.anchor.setTo(0.5, 0.5);
         var playButton = this.game.add.button(400, 400, "Start", this.startGame, this);
         this.title();
+        gameMusic = this.game.add.audio('gameMuzic', 1, false);
+        gameMusic.play();
     },
     title: function () {
         stateText.text = "To the Moon!";
