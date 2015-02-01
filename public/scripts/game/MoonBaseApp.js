@@ -1,14 +1,16 @@
-var app = angular.module("MoonBase", [])
-    .controller('MenuController', ['$scope', function($scope) {
-        $scope.wallet = {
+var MoonBase = angular.module("MoonBase", [])
+    .directive("satoshi-menu", function () {
+        return {
+            restrict: "E",
+            controller: "MenuController as Menu",
+            templateUrl: "partials/satoshiMenu.html"
+        };
+    })
+    .controller('MenuController', function MenuCtrl() {
+        var menu = this;
+        menu.wallet = {
             earned: 0,
             balance: 0,
             address: ' '
         };
-    }])
-    .directive("myMenu", function () {
-        return {
-            restrict: "E",
-            templateUrl: "partials/satoshiMenu.html"
-        };
-    });
+    })

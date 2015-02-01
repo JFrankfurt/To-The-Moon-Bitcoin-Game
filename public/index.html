@@ -1,17 +1,16 @@
 <!doctype html>
 <html>
 <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.2.2/phaser.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
     <title>To The Moon</title>
     <link rel="shortcut icon" href="assets/glyphicon.png"/>
 </head>
-<body>
+<body ng-app="MoonBase">
 <div id="ToTheMoon"></div>
-<div ng-app="MoonBase">
-    <myMenu></myMenu>
+<div>
+    <satoshi-menu></satoshi-menu>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.2.2/phaser.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>
 <script src="scripts/game/states/boot.js"></script>
 <script src="scripts/game/states/preload.js"></script>
 <script src="scripts/game/states/main_menu.js"></script>
