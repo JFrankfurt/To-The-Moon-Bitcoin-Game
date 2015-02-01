@@ -7,6 +7,7 @@ Preload.prototype = {
         this.game.load.image('bullet', 'assets/bitcoin-mini.png');
         this.game.load.image('enemyBullet', 'assets/enemybullet2.jpg');
         this.game.load.image('kaboom', 'assets/explosion3.jpg');
+        this.game.load.image('background', 'assets/background.png');
         this.game.load.audio('pew', 'assets/InvaderBullet.wav');
         this.game.load.audio('pew2', 'assets/InvaderHit.wav');
         this.game.load.audio('playerhit', 'assets/ShipHit.wav');
