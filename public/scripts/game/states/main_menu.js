@@ -6,12 +6,13 @@ Mainmenu.prototype = {
         this.background.autoScroll(-50, -20);
         this.background.tilePosition.x = 0;
         this.background.tilePosition.y = 0;
+        this.game.add.sprite(this.game.world.centerX - 118, 10, 'logo');
         stateText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, ' ', {
             font: '84px Arial',
             fill: '#fff'
         });
         stateText.anchor.setTo(0.5, 0.5);
-        var playButton = this.game.add.button(300, 300, "Start", this.startGame, this);
+        var playButton = this.game.add.button(400, 400, "Start", this.startGame, this);
         this.title();
     },
     title: function () {
