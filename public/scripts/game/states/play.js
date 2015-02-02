@@ -207,7 +207,7 @@ Play.prototype = {
 
 
         //  When the tween loops it calls descend
-        tween.onLoop.add(this.descend);
+        tween.onLoop.add(this.descend, aliens);
     },
     setupInvader: function(invader) {
         invader.anchor.x = 0.5;
@@ -217,8 +217,9 @@ Play.prototype = {
         explosion.animations.add('explode!', [5, 6, 7, 8, 9, 10, 11, 12, 13], 20, true);
     },
     descend: function() {
-        aliens.y += 10;
+            this.game.add.tween(aliens).to({y: aliens.y + 8}, 2500, Phaser.Easing.Linear.None, true, 0, 0, false);
     },
+
     collisionHandler: function(bullet, alien) {
         //  When a bullet hits an alien we kill them both
         bullet.kill();
