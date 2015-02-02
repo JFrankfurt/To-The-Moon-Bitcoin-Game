@@ -26,7 +26,6 @@ var MoonBase = angular.module("MoonBase", [])
             sendCoin : _sendCoin
         };
     })
-
     .controller('MenuController', function MenuCtrl($scope, makeCall) {
 
         $scope.wallet = {
@@ -41,7 +40,6 @@ var MoonBase = angular.module("MoonBase", [])
             makeCall($scope.wallet.address, $scope.wallet.earned);
         };
     })
-
     .directive("mount", function () {
         return {
             restrict: "E",
