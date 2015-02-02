@@ -42,6 +42,7 @@ moonbase.controller('MenuController', ["makeCall", function($scope, makeCall) {
 moonbase.directive("mount", function () {
     return {
         restrict: "E",
+        bindToController: true,
         controller: "MenuController as Menu",
         templateUrl: "partials/mount.html"
     };
@@ -49,6 +50,7 @@ moonbase.directive("mount", function () {
 moonbase.directive('cashout', function () {
     return {
         restrict: "E",
+        bindToController: true,
         controller: "MenuController as Menu",
         templateUrl: "partials/cashout.html"
     }
