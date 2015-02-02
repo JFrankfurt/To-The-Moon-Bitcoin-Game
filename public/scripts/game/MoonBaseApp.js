@@ -27,7 +27,6 @@ var MoonBase = angular.module("MoonBase", [])
         };
     })
     .controller('MenuController', function MenuCtrl($scope, makeCall) {
-
         $scope.wallet = {
             earned: 0,
             balance: 0,
