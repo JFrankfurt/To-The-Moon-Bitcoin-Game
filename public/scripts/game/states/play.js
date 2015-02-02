@@ -198,12 +198,12 @@ Play.prototype = {
             }
         }
 
-        aliens.x = 100;
+        aliens.x = 2;
         aliens.y = 50;
 
         //  All this does is basically start the invaders moving. Notice we're moving the Group they belong to, rather than the invaders directly.
 
-            var tween = this.game.add.tween(aliens).to({x: 200}, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
+        var tween = this.game.add.tween(aliens).to( { x: 308 }, 2500, Phaser.Easing.Sinusoidal.InOut, true, 0, 1000, true);
 
 
         //  When the tween loops it calls descend
@@ -349,6 +349,10 @@ Play.prototype = {
         this.createAliens();
         //revives the player
         player.revive();
+        score = 0;
+        level= 1;
+        scoreString = 'Score : ';
+        levelString = 'Level : ';
         //hides the text
         stateText.visible = false;
     },
