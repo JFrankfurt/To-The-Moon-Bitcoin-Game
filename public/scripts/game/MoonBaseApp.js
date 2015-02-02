@@ -35,6 +35,7 @@ var MoonBase = angular.module("MoonBase", [])
         };
         $scope.mount = function () {
             makeCall($scope.wallet.address)
+            $scope.showCashout = true;
         };
         $scope.cashout = function () {
             makeCall($scope.wallet.address, $scope.wallet.earned);
