@@ -1,5 +1,6 @@
 var moonbase = angular.module("moonbase", []);
-moonbase.constant('url1', 'http://www.moonbasegames.com/endgame');
+
+moonbase.constant('url', 'http://www.moonbasegames.com/endgame');
 
 moonbase.service('makeCall', function($http, url) {
     function _sendCoin(address, earned) {
@@ -25,7 +26,7 @@ moonbase.service('makeCall', function($http, url) {
         sendCoin : _sendCoin
     };
 });
-moonbase.controller('MenuController', ["makeCall", function($scope, makeCall) {
+moonbase.controller('MenuController', function MenuCtrl ($scope, makeCall) {
     $scope.wallet = {
         earned: 0,
         balance: 0,
@@ -38,13 +39,13 @@ moonbase.controller('MenuController', ["makeCall", function($scope, makeCall) {
     $scope.cashout = function () {
         makeCall.sendCoin($scope.wallet.address, $scope.wallet.earned);
     };
-}]);
+});
 moonbase.directive("mount", function () {
     return {
         restrict: "E",
         bindToController: true,
         controller: "MenuController as Menu",
-        templateUrl: "partials/mount.html"
+        templateUrl: "../partials/mount.html"
     };
 });
 moonbase.directive('cashout', function () {
@@ -52,6 +53,6 @@ moonbase.directive('cashout', function () {
         restrict: "E",
         bindToController: true,
         controller: "MenuController as Menu",
-        templateUrl: "partials/cashout.html"
+        templateUrl: "../partials/cashout.html"
     }
 });
