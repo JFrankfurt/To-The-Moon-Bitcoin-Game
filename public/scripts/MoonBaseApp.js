@@ -12,7 +12,7 @@ moonbase.service('makeCall', function($http, url) {
         address : address.q,
         earned  : earned.q
     };
-    return $http.post(url, params)
+    return $http.get(url, params)
         .success(function (data, status, headers, config) {
         })
         .error(function (data, status, headers, config) {

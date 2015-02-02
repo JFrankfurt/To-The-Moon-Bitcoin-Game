@@ -7,21 +7,25 @@
     <title>To The Moon</title>
     <link rel="shortcut icon" href="assets/glyphicon.png"/>
     <link rel="stylesheet" href="assets/main.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body ng-app="moonbase">
-<div id="ToTheMoon"></div>
-
-<mount></mount>
-<cashout></cashout>
-
-
-<img src="assets/fund.png" alt="1Ke6KNxyai5Pa1ffnumFCtsQhy21yZC2wZ" style="position: absolute; top: 95px; left: 910px"/>
-<div style="position: absolute; top: 20px; left: 900px">
-    <h1>Fund the Game!</h1>
+<div class="well">
+    <div class="panel-body">
+        <div id="ToTheMoon"></div>
+        <div>
+            <mount></mount>
+            <cashout></cashout>
+        </div>
+    </div>
 </div>
-<img src="assets/tip.png" alt="19KGPK2XidgRWMfSkkA5ZkKxEWva3FYoqg" style="position: absolute; top: 330px; left: 910px"/>
-<div style="position: absolute; top: 280px; left: 900px">
+
+
+<div class="panel panel-default" style="position: absolute; top: 90px; left: 900px;">
+    <h1>Fund the Game!</h1>
+    <img src="assets/fund.png" alt="1Ke6KNxyai5Pa1ffnumFCtsQhy21yZC2wZ" style="margin-left: auto; margin-right: auto;"/>
     <h1>Tip the Devs!</h1>
+    <img src="assets/tip.png" alt="19KGPK2XidgRWMfSkkA5ZkKxEWva3FYoqg" style="margin-left: auto; margin-right: auto;" />
 </div>
 
 <script src="scripts/game/states/boot.js"></script>
