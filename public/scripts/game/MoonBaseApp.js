@@ -1,10 +1,20 @@
 var MoonBase = angular.module("MoonBase", [])
-    .directive("satoshi-menu", function () {
+    .factory('Data', function() {
+
+    })
+    .directive("mount", function () {
         return {
             restrict: "E",
             controller: "MenuController as Menu",
-            templateUrl: "partials/satoshiMenu.html"
+            templateUrl: "partials/mount.html"
         };
+    })
+    .directive('cashout', function () {
+        return {
+            restrict: "E",
+            controller: "MenuController as Menu",
+            templateUrl: "partials/cashout.html"
+        }
     })
     .controller('MenuController', function MenuCtrl() {
         var menu = this;
