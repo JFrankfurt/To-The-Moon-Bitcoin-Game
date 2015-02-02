@@ -27,6 +27,7 @@ var MoonBase = angular.module("MoonBase", [])
         };
     })
     .controller('MenuController', function MenuCtrl($scope, makeCall) {
+
         $scope.wallet = {
             earned: 0,
             balance: 0,
@@ -46,6 +47,7 @@ var MoonBase = angular.module("MoonBase", [])
             templateUrl: "partials/mount.html"
         };
     })
+
     .directive('cashout', function () {
         return {
             restrict: "E",
