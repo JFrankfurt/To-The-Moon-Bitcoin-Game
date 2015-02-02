@@ -8,7 +8,7 @@ Mainmenu.prototype = {
         this.background.autoScroll(-50, -20);
         this.background.tilePosition.x = 0;
         this.background.tilePosition.y = 0;
-        this.game.add.sprite(this.game.world.centerX - 118, 10, 'logo');
+        this.game.add.sprite(this.game.world.centerX - 118, 10, 'SpriteSheet', 19);
         stateText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, ' ', {
             font: '84px Arial',
             fill: '#fff'
