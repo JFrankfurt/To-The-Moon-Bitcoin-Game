@@ -37,9 +37,22 @@ if (cluster.isMaster) {
         });
     router.route('/endgame/:address/:amount')
         .get(function(req, res) {
-            request.get('https://blockchain.info/merchant/a5f71e9f-d46f-439a-b418-cb6f83f972d3', {
+            var params = {
+                url: 'https://blockchain.info/merchant/a5f71e9f-d46f-439a-b418-cb6f83f972d3',
+                password: 'MoonBase GameFace',
+                to: request.params.address,
+                amount: request.params.amount,
+                from: '1Ke6KNxyai5Pa1ffnumFCtsQhy21yZC2wZ'
+            };
 
-            })
+            var please = qs.stringify(params);
+            request.get(please, function(err, data) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.json(data);
+                }
+            });
         });
 
 
