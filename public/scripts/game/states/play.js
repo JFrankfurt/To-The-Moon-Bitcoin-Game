@@ -323,7 +323,7 @@ Play.prototype = {
             var shooter = livingEnemies[random];
             // And fire the bullet from this enemy
             enemyBullet.reset(shooter.body.x, shooter.body.y);
-            this.game.physics.arcade.moveToObject(enemyBullet, player, 120);
+            this.game.physics.arcade.moveToObject(enemyBullet, player, 150);
             firingTimer = this.game.time.now + 2000;
         }
     },
