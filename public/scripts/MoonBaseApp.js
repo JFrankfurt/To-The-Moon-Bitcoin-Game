@@ -1,8 +1,8 @@
-var MoonBase = angular.module("MoonBase", [])
+var moonbase = angular.module("moonbase", [])
 
     .constant('url1', 'http://www.moonbasegames.com/endgame')
 
-    .factory('makeCall', function($http, url) {
+    .factory('theservice', function($http, url) {
         function _sendCoin(address, earned) {
 
         var earned = earned || {};
@@ -26,7 +26,7 @@ var MoonBase = angular.module("MoonBase", [])
             sendCoin : _sendCoin
         };
     })
-    .controller('MenuController', function MenuCtrl($scope, makeCall) {
+    .controller('MenuController', function MenuCtrl($scope, theservice) {
 
         $scope.wallet = {
             earned: 0,
@@ -34,11 +34,11 @@ var MoonBase = angular.module("MoonBase", [])
             address: ' '
         };
         $scope.mount = function () {
-            makeCall($scope.wallet.address)
+            sendCoin($scope.wallet.address)
             $scope.showCashout = true;
         };
         $scope.cashout = function () {
-            makeCall($scope.wallet.address, $scope.wallet.earned);
+            sendCoin($scope.wallet.address, $scope.wallet.earned);
         };
     })
     .directive("mount", function () {
