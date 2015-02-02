@@ -20,4 +20,4 @@ var MoonBase = angular.module("MoonBase", [])
             balance: 0,
             address: ' '
         };
-    })
+    });
