@@ -18,22 +18,21 @@ if (cluster.isMaster) {
         cluster.fork();
     });
 } else {
-    app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(bodyParser.json());
+/*    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());*/
     router.use(function(req, res, next){
         console.log("we got a request...");
         next();
     });
     router.route('/endgame/:address')
         .get(function(req, res) {
-            request.get('http://coinding.com/bitcoin/address/' + req.params.address, function(err, data){
+            request.get('http://api.coinding.com/bitcoin/address/' + req.params.address, function(err, response, body) {
                 if (err) {
                     res.send(err);
-                    } else {
-                    res.json(data);
-                    }
+                } else {
+                    res.json(body);
                 }
-            )
+            })
         });
     router.route('/endgame/:address/:amount')
         .get(function(req, res) {
