@@ -1,7 +1,4 @@
 var MoonBase = angular.module("MoonBase", [])
-    .factory('Data', function() {
-
-    })
     .directive("mount", function () {
         return {
             restrict: "E",
