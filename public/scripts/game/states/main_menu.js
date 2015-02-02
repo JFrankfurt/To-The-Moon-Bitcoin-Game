@@ -14,11 +14,11 @@ Mainmenu.prototype = {
             fill: '#fff'
         });
         stateText.anchor.setTo(0.5, 0.5);
-        var playButton = this.game.add.button(400, 400, "Start", this.startGame, this);
+        var playButton = this.game.add.button(360, 400, "Start", this.startGame, this);
         this.title();
         gameMusic = this.game.add.audio('gameMuzic', 1, false);
         gameMusic.play();
-        text = this.game.add.text(0, 0, "Play", {font: "16px Arial", fill: "#ffffff"});
+        text = this.game.add.text(24, 10, "Play", {font: "16px Arial", fill: "#ffffff"});
 
         playButton.addChild(text);
     },

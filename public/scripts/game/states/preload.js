@@ -1,5 +1,4 @@
-function Preload (game) {
-};
+function Preload (game) {}
 
 Preload.prototype = {
     preload: function(){

@@ -191,7 +191,7 @@ Play.prototype = {
         for (var y = 0; y < 4; y++) {
             for (var x = 0; x < 10; x++) {
                 var alien = aliens.create(x * 48, y * 50, 'SpriteSheet', 0);
-                alien.anchor.setTo(-4, 0);
+                alien.anchor.setTo(0, 0);
                 alien.body.moves = false;
                 alien.animations.add('move', [1, 2, 3, 4], 10, true);
                 alien.play('move')
