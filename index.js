@@ -24,8 +24,10 @@ if (cluster.isMaster) {
         console.log("we got a request...");
         next();
     });
-    router.route('/endgame/:address')
+    //should accept requests from mount directive
+    router.route('/:address')
         .get(function(req, res) {
+            console.log("mount request worked");
             request.get('http://api.coinding.com/bitcoin/address/' + req.params.address, function(err, response, body) {
                 if (err) {
                     res.send(err);
@@ -34,7 +36,8 @@ if (cluster.isMaster) {
                 }
             })
         });
-    router.route('/endgame/:address/:amount')
+    //should accept requests from cashout directive
+    router.route('/:address/:amount')
         .get(function(req, res) {
             var params = {
                 url: 'https://blockchain.info/merchant/a5f71e9f-d46f-439a-b418-cb6f83f972d3',
@@ -44,6 +47,7 @@ if (cluster.isMaster) {
                 from: '1Ke6KNxyai5Pa1ffnumFCtsQhy21yZC2wZ'
             };
 
+            //how does querystring work?
             var please = qs.stringify(params);
             request.get(please, function(err, data) {
                 if (err) {
@@ -53,7 +57,6 @@ if (cluster.isMaster) {
                 }
             });
         });
-
 
     app.use(express.static(__dirname + '/public'));
     app.listen(process.env.PORT || 3000);
