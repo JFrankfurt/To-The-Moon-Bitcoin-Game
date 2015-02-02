@@ -25,6 +25,11 @@ function Play(game) {}
     var scoreText;
     var scoreString = '';
 
+//satoshis
+    var satoshis = 0;
+    var satoshiText;
+    var satoshiString = '';
+
 //level
     var level = 1;
     var levelString = '';
@@ -100,6 +105,10 @@ Play.prototype = {
 
         //  Lives
         lives = this.game.add.group();
+
+        //satoshis
+        satoshiString = 'Satoshis : ';
+        satoshiText = this.game.add.text(10, 90, satoshiString + satoshis, {font: '34px Arial', fill: '#fff'});
 
         //Text
         stateText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, ' ', {
@@ -217,8 +226,8 @@ Play.prototype = {
         explosion.animations.add('explode!', [5, 6, 7, 8, 9, 10, 11, 12, 13], 20, true);
     },
     descend: function() {
-        //aliens.y += 8;
-            this.game.add.tween(aliens).to({y: aliens.y + 8}, 2500, Phaser.Easing.Linear.None, false, 0, 0, false);
+        firingTimer -= 100000000;
+            //this.game.add.tween(aliens).to({y: aliens.y + 8}, 2500, Phaser.Easing.Linear.None, false, 0, 0, false);
     },
 
     collisionHandler: function(bullet, alien) {
@@ -226,7 +235,9 @@ Play.prototype = {
         bullet.kill();
         alien.kill();
         score += 10;
+        satoshis += Math.floor((Math.random() * 50) + 1);
         scoreText.text = scoreString + score;
+        satoshiText.text = satoshiString + satoshis;
         //  And create an explosion :)
         var explosion = explosions.getFirstExists(false);
         explosion.reset(alien.body.x, alien.body.y);
