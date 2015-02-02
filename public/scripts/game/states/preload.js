@@ -6,7 +6,6 @@ Preload.prototype = {
         this.game.load.atlasJSONHash('SpriteSheet', 'assets/SpriteSheet.png','assets/SpriteSheet.json');
         this.game.load.image('bullet', 'assets/bitcoin-mini.png');
         this.game.load.image('enemyBullet', 'assets/enemybullet2.jpg');
-        this.game.load.image('kaboom', 'assets/explosion3.jpg');
         this.game.load.image('background', 'assets/background.png');
         this.game.load.image('logo', 'assets/Transparent Logo.png');
         this.game.load.image('Start', 'assets/greybutton.png');

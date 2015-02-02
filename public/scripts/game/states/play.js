@@ -212,7 +212,6 @@ Play.prototype = {
     setupInvader: function(invader) {
         invader.anchor.x = 0.5;
         invader.anchor.y = 0.5;
-        invader.animations.add('kaboom');
     },
     setupExplosion: function(explosion) {
         explosion.animations.add('explode!', [5, 6, 7, 8, 9, 10, 11, 12, 13], 20, true);
