@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/JFrankfurt/Faucet",
   "dependencies": {
+    "body-parser": "^1.11.0",
     "express": "^4.10.6",
     "request": "^2.51.0"
   },

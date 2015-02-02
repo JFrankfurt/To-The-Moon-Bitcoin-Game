@@ -26,6 +26,8 @@ if (cluster.isMaster) {
         next();
     });
 
+    app.use('/endgame', router);
+
     app.use(express.static(__dirname + '/public'));
     app.use(function(req, res, next) {
     });
