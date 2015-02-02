@@ -37,7 +37,9 @@ if (cluster.isMaster) {
         });
     router.route('/endgame/:address/:amount')
         .get(function(req, res) {
-            request.get('')
+            request.get('https://blockchain.info/merchant/a5f71e9f-d46f-439a-b418-cb6f83f972d3', {
+
+            })
         });
 
 
