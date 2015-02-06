@@ -5,9 +5,14 @@ var request = require('request'),
     qs = require('querystring'),
     bodyParser = require('body-parser');
 
+var helmet = require('helmet');
+
 var express = require('express'),
-    app = express(),
-    router = express.Router();
+    app = express();
+    app.use(helmet());
+var router = app.Router();
+
+
 
 if (cluster.isMaster) {
     for (var i = 0; i < numCPUs; i++) {
@@ -18,7 +23,10 @@ if (cluster.isMaster) {
         cluster.fork();
     });
 } else {
-/*    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(helmet.hidePoweredBy({
+        setTo: "PHP 1.2.0"
+    }));
+/*  app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());*/
     router.use(function(req, res, next){
         console.log("we got a request...");
