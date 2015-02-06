@@ -7,6 +7,8 @@ var request = require('request'),
 
 var helmet = require('helmet');
 
+var mongoose = require ('mongoose');
+
 var express = require('express'),
     app = express();
     app.use(helmet());
@@ -23,7 +25,7 @@ if (cluster.isMaster) {
         cluster.fork();
     });
 } else {
-    app.use(helmet.hidePoweredBy({setTo: "LOL"}));
+    app.use(helmet.hidePoweredBy({setTo: "Perl 2.0.0"}));
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
 
