@@ -176,8 +176,8 @@ Play.prototype = {
             }
         }
         //  Firing?
-        if (fireButton.isDown) {
-            this.fireBullet();
+        if (fireButton.isDown && lives.countLiving() > 0 && stateText.visible == false) {
+                    this.fireBullet();
         }
         if (this.game.time.now > firingTimer) {
             this.enemyFires();
@@ -275,6 +275,7 @@ Play.prototype = {
             player.kill();
             enemyBullets.callAll('kill');
             this.gameOver();
+
         }
     },
     enemyHitsPlayer: function(player, aliens) {
