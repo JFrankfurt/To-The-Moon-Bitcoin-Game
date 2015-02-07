@@ -5,7 +5,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
     <script src="scripts/MoonBaseApp.js"></script>
     <script src="scripts/game/createGame.js"></script>
-    <script src="scripts/game/game_canvas.js"></script>
+    <script src="scripts/game/gameCanvas.js"></script>
     <title>To The Moon</title>
     <link rel="shortcut icon" href="assets/glyphicon.png"/>
     <link rel="stylesheet" href="assets/main.css"/>
@@ -32,9 +32,9 @@
 
 <script src="scripts/game/states/boot.js"></script>
 <script src="scripts/game/states/preload.js"></script>
-<script src="scripts/game/states/main_menu.js"></script>
+<script src="scripts/game/states/mainMenu.js"></script>
 <script src="scripts/game/states/play.js"></script>
-<script src="scripts/game/states/gameover.js"></script>
+<script src="scripts/game/states/gameOver.js"></script>
 <script>
     (function () {
         var game = new Phaser.Game(800, 600, Phaser.CANVAS,'ToTheMoon');
@@ -42,6 +42,7 @@
         game.state.add("Preload", Preload);
         game.state.add("MainMenu", Mainmenu);
         game.state.add("Play", Play);
+        game.state.add("GameOver", GameOver);
         game.state.start("Boot");
     })();
 </script>
