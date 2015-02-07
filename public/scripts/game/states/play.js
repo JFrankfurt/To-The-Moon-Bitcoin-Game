@@ -185,7 +185,13 @@ Play.prototype = {
         }
         //restart button
         if (restartButton.isDown && lives.countLiving() == 0) {
-            this.restart();
+            this.game.state.start("MainMenu");
+            score = 0;
+            satoshis = 0;
+            level = 1;
+            levelText.text = levelString + level;
+            scoreText.text = scoreString + score;
+            satoshiText.text = satoshiString + satoshis;
         }
         //next level button
         if (nextLevelButton.isDown && aliens.countLiving() === 0) {
@@ -235,7 +241,7 @@ Play.prototype = {
         bullet.kill();
         alien.kill();
         score += 10;
-        satoshis += Math.floor((Math.random() * 50) + 1);
+        satoshis += Math.floor((Math.random() * 50));
         scoreText.text = scoreString + score;
         satoshiText.text = satoshiString + satoshis;
         //  And create an explosion :)
@@ -249,10 +255,9 @@ Play.prototype = {
             enemyBullets.callAll('kill', this);
             stateText.text = " You Won, \n 'N' for next level";
             stateText.visible = true;
-            //the "click to restart" handler
-            level += 1;
-            levelText.text = levelString + level;
-            //this.nextLevelRestart();
+            satoshis += Math.floor((Math.random() * 5000));
+            satoshiText.text = satoshiString + satoshis;
+
         }
     },
     enemyBulletHitsPlayer: function(player, bullet) {
@@ -364,9 +369,9 @@ Play.prototype = {
         //revives the player
         player.revive();
         score = 0;
-        level= 1;
-        scoreString = 'Score : ';
-        levelString = 'Level : ';
+        level = 1;
+        levelText.text = levelString + level;
+        scoreText.text = scoreString + score;
         //hides the text
         stateText.visible = false;
     },
@@ -375,5 +380,8 @@ Play.prototype = {
         this.createAliens();
         player.revive();
         stateText.visible = false;
+        level += 1;
+        levelText.text = levelString + level;
+
     }
 };
