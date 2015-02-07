@@ -6,7 +6,6 @@ function Play(game) {}
     var restartButton;
     var nextLevelButton;
 
-
 //bodies
     var player;
     var alive;
@@ -283,13 +282,11 @@ Play.prototype = {
             alive.kill();
         }
 
-
         //  And create an explosion :)
         var explosion = explosions.getFirstExists(false);
         explosion.reset(player.body.x, player.body.y);
         explosion.play('explode!', 30, false, true);
         playerHitSound.play();
-
 
         // When the player dies
         if (lives.countLiving() === 1) {
