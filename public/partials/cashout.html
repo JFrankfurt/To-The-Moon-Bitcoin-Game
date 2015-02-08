@@ -1,6 +1,6 @@
-<div ng-if="$scope.showCashout">
-    <div>{{ $scope.wallet.address }}</div>
-    <div>{{ $scope.wallet.balance }}</div>
-    <div>{{ $scope.wallet.earned }}</div>
+<div ng-if="$scope.mounted">
+    <div>Your wallet: {{ $scope.wallet.address }}</div>
+    <div>Current balance: {{ $scope.wallet.balance }}</div>
+    <div>Satoshis earned: {{ $scope.wallet.earned }}</div>
     <input type="submit" value="cash out" ng-click="cashout()"/>
 </div>
