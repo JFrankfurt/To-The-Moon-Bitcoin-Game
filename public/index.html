@@ -10,16 +10,20 @@
     <title>To The Moon</title>
     <link rel="shortcut icon" href="assets/glyphicon.png"/>
     <link rel="stylesheet" href="assets/main.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.10/css/ngDialog-theme-plain.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.10/css/ngDialog.min.css"/>
-
-
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.10/css/ngDialog-theme-plain.min.css"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.10/css/ngDialog.min.css"/>
 </head>
 <body ng-app="moonbase">
-
+<div id="really" style="width: 800px; height: 600px; position: absolute; background-color: #000000; z-index: -1;">
+<video id="yeah" width="800" autoplay>
+    <source src="assets/intro.mp4" type="video/mp4">
+</video>
+    <audio loop autoplay>
+        <source src="assets/background.mp3">
+    </audio>
 <ui-view></ui-view>
-
+</div>
 </body>
 
 <script type="text/ng-template" id="modalDialogId">
@@ -38,15 +42,18 @@
 <script src="scripts/game/states/play.js"></script>
 <script src="scripts/game/states/gameover.js"></script>
 <script>
-    (function () {
-        var game = new Phaser.Game(800, 600, Phaser.CANVAS,'ToTheMoon');
+    window.setTimeout(function () {
+        var parent = document.getElementById("really");
+        var child = document.getElementById("yeah");
+        parent.removeChild(child);
+        var game = new Phaser.Game(800, 600, Phaser.AUTO,'ToTheMoon');
         game.state.add("Boot", Boot);
         game.state.add("Preload", Preload);
-        game.state.add("MainMenu", Mainmenu);
+        game.state.add("MainMenu", mainMenu);
         game.state.add("Play", Play);
         game.state.add("GameOver", GameOver);
         game.state.start("Boot");
-    })();
+    }, 3400);
 </script>
 <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

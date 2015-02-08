@@ -129,7 +129,7 @@ Play.prototype = {
 
         //  An explosion pool
         explosions = this.game.add.group();
-        explosions.createMultiple(9, 'SpriteSheet');
+        explosions.createMultiple(15, 'SpriteSheet');
         explosions.forEach(this.setupExplosion);
 
         //  And some controls to play the game with
@@ -243,14 +243,13 @@ Play.prototype = {
     },
 
     collisionHandler: function(bullet, alien) {
-        //  When a bullet hits an alien we kill them both
+        //  When a bullet hits an alien kill them both
         bullet.kill();
         alien.kill();
         score += 10;
         satoshis += Math.floor((Math.random() * 50));
         scoreText.text = scoreString + score;
         satoshiText.text = satoshiString + satoshis;
-        //  And create an explosion :)
         var explosion = explosions.getFirstExists(false);
         explosion.reset(alien.body.x, alien.body.y);
         explosion.play('explode!', 30, false, true);
@@ -276,7 +275,6 @@ Play.prototype = {
         if (alive) {
             alive.kill();
         }
-        //  And create an explosion :)
         var explosion = explosions.getFirstExists(false);
         explosion.reset(player.body.x, player.body.y);
         explosion.play('explode!', 30, false, true);

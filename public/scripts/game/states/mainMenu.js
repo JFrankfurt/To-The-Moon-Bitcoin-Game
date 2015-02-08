@@ -1,4 +1,4 @@
-function Mainmenu(game){
+function mainMenu(game){
 }
 
 var stateText;
@@ -6,7 +6,7 @@ var gameMusic;
 var text;
 var startButton;
 
-Mainmenu.prototype = {
+mainMenu.prototype = {
     create: function(){
         this.background = this.game.add.tileSprite(0, 0, this.world.width, this.world.height, 'background');
         this.background.autoScroll(-50, -20);

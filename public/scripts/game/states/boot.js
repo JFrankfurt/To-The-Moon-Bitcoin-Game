@@ -6,8 +6,9 @@ Boot.prototype = {
     preload: function(){
     },
     create: function(){
-        gameMusic = this.game.add.audio('gameMuzic', 1, false);
-        gameMusic.play();
+        //currently have audio starting on window load
+        /*gameMusic = this.game.add.audio('gameMuzic', 1, false);
+        gameMusic.play();*/
         this.game.state.start("Preload");
     }
 };
