@@ -1,3 +1,3 @@
-window.createGame = function(scope, address, score, satoshis, endGame, injector) {
+window.createGame = function(scope, injector) {
 
 };
