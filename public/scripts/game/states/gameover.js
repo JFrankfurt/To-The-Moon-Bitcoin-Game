@@ -1,6 +1,9 @@
-function GameOver(game){}
+function GameOver(game) {}
+Gameover.prototype = {
+    create: function () {
 
-GameOver.prototype = {
-    
+    },
+    update: function () {
 
-};
+    }
+}
