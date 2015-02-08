@@ -1,4 +1,4 @@
-var moonbase = angular.module("moonbase", []);
+var moonbase = angular.module("moonbase", ["ui.router"]);
 
 moonbase.constant('url', 'http://www.moonbasegames.com/endgame');
 
@@ -38,6 +38,8 @@ moonbase.controller('MenuController', function MenuCtrl ($scope, makeCall) {
     };
     $scope.cashout = function () {
         makeCall.sendCoin($scope.wallet.address, $scope.wallet.earned);
+
+
     };
 });
 moonbase.directive("mount", function () {
