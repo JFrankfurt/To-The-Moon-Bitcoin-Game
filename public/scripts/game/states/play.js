@@ -92,7 +92,7 @@ Play.prototype = {
         this.createAliens();
 
 
-        //initiallize sounds
+        //initialize sounds
         enemyBulletSound = this.game.add.audio('pew', 1, false);
         enemyBulletHitSound = this.game.add.audio('pew2', 1, false);
         playerHitSound = this.game.add.audio('playerhit', 1, false);
@@ -264,7 +264,7 @@ Play.prototype = {
             stateText.visible = true;
             satoshis += Math.floor((Math.random() * 5000));
             satoshiText.text = satoshiString + satoshis;
-
+            bullets.callAll('kill');
         }
     },
     endGame: function () {
@@ -285,6 +285,7 @@ Play.prototype = {
         if (lives.countLiving() < 1) {
             player.kill();
             enemyBullets.callAll('kill');
+            bullets.callAll('kill');
             this.gameOver();
 
         }
@@ -299,7 +300,6 @@ Play.prototype = {
             alive.kill();
         }
 
-        //  And create an explosion :)
         var explosion = explosions.getFirstExists(false);
         explosion.reset(player.body.x, player.body.y);
         explosion.play('explode!', 30, false, true);
@@ -308,10 +308,7 @@ Play.prototype = {
         // When the player dies
         if (lives.countLiving() === 1) {
             player.kill();
-
-
             gameOver();
-
         }
         if (lives.countLiving() > 0) {
             player.revive();

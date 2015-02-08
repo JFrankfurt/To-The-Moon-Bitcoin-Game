@@ -1,5 +1,5 @@
 function GameOver(game) {}
-Gameover.prototype = {
+GameOver.prototype = {
     create: function () {
 
     },

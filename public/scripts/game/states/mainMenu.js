@@ -1,7 +1,11 @@
-function Mainmenu(game){}
+function Mainmenu(game){
+}
+
 var stateText;
 var gameMusic;
 var text;
+var startButton;
+
 Mainmenu.prototype = {
     create: function(){
         this.background = this.game.add.tileSprite(0, 0, this.world.width, this.world.height, 'background');
@@ -17,8 +21,13 @@ Mainmenu.prototype = {
         var playButton = this.game.add.button(360, 400, "Start", this.startGame, this);
         this.title();
         text = this.game.add.text(24, 10, "Play", {font: "16px Arial", fill: "#ffffff"});
-
         playButton.addChild(text);
+        startButton = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+    },
+    update: function () {
+        if (startButton.isDown) {
+            this.startGame();
+        }
     },
     title: function () {
         stateText.text = "To the Moon!";
