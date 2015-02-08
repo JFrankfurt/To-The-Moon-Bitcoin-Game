@@ -259,11 +259,16 @@ Play.prototype = {
             scoreText.text = scoreString + score;
             enemyBullets.callAll('kill', this);
             stateText.text = " You Won, \n 'N' for next level";
-            cashButton = this.game.add.button(360, 400, "Start", this.endGame, this);
             stateText.visible = true;
             satoshis += Math.floor((Math.random() * 5000));
             satoshiText.text = satoshiString + satoshis;
             bullets.callAll('kill');
+            /*this button takes the player to the end game state.
+            * We need to figure out how we handle cash outs
+            * Currently in the process of integrating the ngModal library for handling this...
+            * might not need a true end game state if we can do everything in a dialog box
+            * */
+            cashButton = this.game.add.button(360, 400, "Start", this.endGame, this);
         }
     },
     endGame: function () {
