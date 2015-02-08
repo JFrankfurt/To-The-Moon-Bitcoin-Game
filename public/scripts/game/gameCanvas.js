@@ -1,14 +1,18 @@
 angular.module('app.game')
 .directive('gameCanvas', function($injector) {
-        var linkFn = function(scope, elem, attrs) {
-
-        };
-
         return {
             scope: {
-
+                score: score,
+                earned: satoshis,
+                lives: lives,
+                address: address,
+                mounted: mounted
             },
-            template: "<div id='ToTheMoon'></div>",
-            link: linkFn
+            bindToController: true,
+            controller: "CanvasCtrl as canvas",
+            template: "../partials/main.html"
         }
-    });
+    })
+.controller('CanvasCtrl', function CanvasCtrl(){
+        var that = this;
+    })

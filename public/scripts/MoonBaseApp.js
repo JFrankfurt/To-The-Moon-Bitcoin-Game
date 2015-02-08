@@ -1,11 +1,11 @@
-var moonbase = angular.module("moonbase", ["ui.router"]);
+var moonbase = angular.module("moonbase", ["ui.router", "app.game"]);
 
 moonbase.constant('url', 'http://www.moonbasegames.com/endgame');
 moonbase.config(function config($stateProvider) {
-    $stateProvider.state('index', {
+    $stateProvider.state('', {
         url: '',
         controller: "MenuController as menu",
-        templateUrl: "partials/main.html"
+        templateUrl: "../partials/main.html"
     })
 });
 moonbase.service('makeCall', function($http, url) {
@@ -47,20 +47,4 @@ moonbase.controller('MenuController', function MenuCtrl ($scope, makeCall) {
 
 
     };
-});
-moonbase.directive("mount", function () {
-    return {
-        restrict: "E",
-        bindToController: true,
-        controller: "MenuController as Menu",
-        templateUrl: "../partials/mount.html"
-    };
-});
-moonbase.directive('cashout', function () {
-    return {
-        restrict: "E",
-        bindToController: true,
-        controller: "MenuController as Menu",
-        templateUrl: "../partials/cashout.html"
-    }
 });
