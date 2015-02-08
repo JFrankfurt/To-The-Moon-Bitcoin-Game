@@ -1,4 +1,4 @@
-angular.module('app.game')
+angular.module('app.game', [])
     .directive('gameCanvas', function($injector) {
         return {
             scope: {
@@ -15,4 +15,5 @@ angular.module('app.game')
     })
     .controller('CanvasCtrl', function CanvasCtrl(){
         var that = this;
+
     })

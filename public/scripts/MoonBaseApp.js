@@ -1,4 +1,4 @@
-var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
+var moonbase = angular.module("moonbase", ["ui.router", "app.game", "ngDialog"])
 
 .constant('url', 'http://www.moonbasegames.com/endgame')
 .config(function config($stateProvider) {
@@ -8,6 +8,19 @@ var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
         templateUrl: "../partials/main.html"
     })
 })
+.config(['ngDialogProvider', function(ngDialogProvider) {
+        ngDialogProvider.setDefaults({
+            className: 'ngdialog-theme-plain',
+            plain: true,
+            showClose: true,
+            closeByDocument: true,
+            closeByEscape: true,
+            appendTo: false,
+            preCloseCallback: function () {
+                //send user to main menu and reset score?
+            }
+        });
+    }])
 .service('makeCall', function($http, url) {
     function _sendCoin(address, earned) {
 
@@ -32,7 +45,19 @@ var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
         sendCoin : _sendCoin
     };
 })
-.controller('MenuController', function MenuCtrl ($scope, makeCall) {
+.controller('MenuController', function MenuCtrl ($scope, $rootScope, ngDialog, makeCall) {
+    $scope.openModal = function () { //line 190 in ngDialog examples
+        ngDialog.openConfirm({
+            template: 'modalDialogId',
+            className: 'ngdialog-theme-default',
+            preCloseCallback: 'preCloseCallbackOnScope',
+            scope: $scope
+        }).then(function(value) {
+            //handle successful call
+        }, function (error) {
+            //handle error
+        });
+    };
     $scope.wallet = {
         earned: 0,
         balance: 0,
@@ -44,7 +69,6 @@ var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
     };
     $scope.cashout = function () {
         makeCall.sendCoin($scope.wallet.address, $scope.wallet.earned);
-
 
     };
 });
