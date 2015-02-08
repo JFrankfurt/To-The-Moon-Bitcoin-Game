@@ -1,7 +1,13 @@
 var moonbase = angular.module("moonbase", ["ui.router"]);
 
 moonbase.constant('url', 'http://www.moonbasegames.com/endgame');
-
+moonbase.config(function config($stateProvider) {
+    $stateProvider.state('index', {
+        url: '',
+        controller: "MenuController as menu",
+        templateUrl: "partials/main.html"
+    })
+});
 moonbase.service('makeCall', function($http, url) {
     function _sendCoin(address, earned) {
 
