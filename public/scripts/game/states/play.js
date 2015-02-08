@@ -18,6 +18,9 @@ function Play(game) {}
     var enemyBullets;
     var firingTimer = 0;
     var livingEnemies = [];
+//cashout button
+
+var cashButton;
 
 //score
     var score = 0;
@@ -221,7 +224,7 @@ Play.prototype = {
 
 
         //  When the tween loops it calls descend
-        tween.onLoop.add(this.descend, this);
+        tween.onLoop.add(this.strafe, this);
     },
     setupInvader: function(invader) {
         invader.anchor.x = 0.5;
@@ -230,8 +233,12 @@ Play.prototype = {
     setupExplosion: function(explosion) {
         explosion.animations.add('explode!', [5, 6, 7, 8, 9, 10, 11, 12, 13], 20, true);
     },
-    descend: function() {
+    fireFucker: function() {
+        this.game.physics.arcade.moveToObject(enemyBullet, player, +1000);
+    },
+    strafe: function() {
         firingTimer -= 100000000;
+        //this.game.physics.arcade.moveToObject(enemyBullet, player, +150);
             //this.game.add.tween(aliens).to({y: aliens.y + 8}, 2500, Phaser.Easing.Linear.None, false, 0, 0, false);
     },
 
@@ -253,11 +260,15 @@ Play.prototype = {
             scoreText.text = scoreString + score;
             enemyBullets.callAll('kill', this);
             stateText.text = " You Won, \n 'N' for next level";
+            cashButton = this.game.add.button(360, 400, "Start", this.endGame, this);
             stateText.visible = true;
             satoshis += Math.floor((Math.random() * 5000));
             satoshiText.text = satoshiString + satoshis;
 
         }
+    },
+    endGame: function () {
+      this.game.state.start("GameOver");
     },
     enemyBulletHitsPlayer: function(player, bullet) {
         bullet.kill();
@@ -378,6 +389,7 @@ Play.prototype = {
         this.createAliens();
         player.revive();
         stateText.visible = false;
+        cashButton.visible = false;
         level += 1;
         levelText.text = levelString + level;
 
