@@ -6,4 +6,4 @@ Gameover.prototype = {
     update: function () {
 
     }
-}
+};

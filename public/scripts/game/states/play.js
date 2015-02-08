@@ -144,7 +144,7 @@ Play.prototype = {
         player.body.velocity.setTo(0, 0);
 
         if (cursors.left.isDown) {
-            player.body.velocity.x = -200;
+            player.body.velocity.x = -2000;
 
             if (flying != 'left') {
                 player.animations.play('left');
@@ -155,7 +155,7 @@ Play.prototype = {
             }
         }
         else if (cursors.right.isDown) {
-            player.body.velocity.x = 200;
+            player.body.velocity.x = 2000;
 
             if (flying != 'right') {
                 player.animations.play('right');
@@ -337,7 +337,7 @@ Play.prototype = {
             var shooter = livingEnemies[random];
             // And fire the bullet from this enemy
             enemyBullet.reset(shooter.body.x, shooter.body.y);
-            this.game.physics.arcade.moveToObject(enemyBullet, player, 150);
+            this.game.physics.arcade.moveToObject(enemyBullet, player, 1000);
             firingTimer = this.game.time.now + 2000;
         }
     },
@@ -350,7 +350,7 @@ Play.prototype = {
                 //  And fire it
                 bullet.reset(player.x, player.y + 8);
                 bullet.body.velocity.y = -400;
-                bulletTime = this.game.time.now + 200;
+                bulletTime = this.game.time.now + 50;
             }
         }
     },
