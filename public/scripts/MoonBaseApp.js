@@ -1,14 +1,14 @@
-var moonbase = angular.module("moonbase", ["ui.router", "app.game"]);
+var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
 
-moonbase.constant('url', 'http://www.moonbasegames.com/endgame');
-moonbase.config(function config($stateProvider) {
+.constant('url', 'http://www.moonbasegames.com/endgame')
+.config(function config($stateProvider) {
     $stateProvider.state('', {
         url: '',
         controller: "MenuController as menu",
         templateUrl: "../partials/main.html"
     })
-});
-moonbase.service('makeCall', function($http, url) {
+})
+.service('makeCall', function($http, url) {
     function _sendCoin(address, earned) {
 
     var earned = earned || {};
@@ -31,8 +31,8 @@ moonbase.service('makeCall', function($http, url) {
     return {
         sendCoin : _sendCoin
     };
-});
-moonbase.controller('MenuController', function MenuCtrl ($scope, makeCall) {
+})
+.controller('MenuController', function MenuCtrl ($scope, makeCall) {
     $scope.wallet = {
         earned: 0,
         balance: 0,

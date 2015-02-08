@@ -1,5 +1,5 @@
 angular.module('app.game')
-.directive('gameCanvas', function($injector) {
+    .directive('gameCanvas', function($injector) {
         return {
             scope: {
                 score: score,
@@ -10,9 +10,9 @@ angular.module('app.game')
             },
             bindToController: true,
             controller: "CanvasCtrl as canvas",
-            template: "../partials/main.html"
+            template: "partials/main.html"
         }
     })
-.controller('CanvasCtrl', function CanvasCtrl(){
+    .controller('CanvasCtrl', function CanvasCtrl(){
         var that = this;
     })
