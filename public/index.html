@@ -19,6 +19,9 @@
 <body ng-app="moonbase">
 
 <ui-view></ui-view>
+
+</body>
+
 <script type="text/ng-template" id="modalDialogId">
     <div class="ngdialog-message">
         <h3>Cash Out</h3>
@@ -29,7 +32,6 @@
         <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="quit()">quit</button>
     </div>
 </script>
-
 <script src="scripts/game/states/boot.js"></script>
 <script src="scripts/game/states/preload.js"></script>
 <script src="scripts/game/states/mainMenu.js"></script>
@@ -54,5 +56,4 @@
     ga('create', 'UA-57740440-1', 'auto');
     ga('send', 'pageview');
 </script>
-</body>
 </html>

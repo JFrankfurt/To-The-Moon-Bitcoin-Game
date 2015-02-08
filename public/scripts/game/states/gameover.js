@@ -4,6 +4,6 @@ Gameover.prototype = {
 
     },
     update: function () {
-
+        //ng-click="openModal()"
     }
 };
