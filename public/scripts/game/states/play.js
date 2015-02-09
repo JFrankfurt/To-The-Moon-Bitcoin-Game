@@ -26,6 +26,7 @@ var cashButton;
     var score = 0;
     var scoreText;
     var scoreString = '';
+    var roundFinished = 1000;
 
 //satoshis
     var satoshis = 0;
@@ -255,12 +256,11 @@ Play.prototype = {
         explosion.play('explode!', 30, false, true);
         enemyBulletHitSound.play();
         if (aliens.countLiving() === 0) {
-            score += 1000;
+            this.levelComplete();
             scoreText.text = scoreString + score;
             enemyBullets.callAll('kill', this);
             stateText.text = " You Won, \n 'N' for next level";
             stateText.visible = true;
-            satoshis += Math.floor((Math.random() * 5000));
             satoshiText.text = satoshiString + satoshis;
             bullets.callAll('kill');
             /*this button takes the player to the end game state.
@@ -393,5 +393,10 @@ Play.prototype = {
         level += 1;
         levelText.text = levelString + level;
 
+    },
+    levelComplete: function () {
+        score += roundFinished;
+        satoshis += Math.floor((Math.random() * roundFinished));
+        roundFinished += 1000;
     }
 };

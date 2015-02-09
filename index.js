@@ -3,11 +3,13 @@ var cluster = require('cluster'),
 
 var request = require('request'),
     qs = require('querystring'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    methodOverride = require('method-override'),
+    _ = require('lodash');
 
 var helmet = require('helmet');
 
-var mongoose = require ('mongoose');
+var mongoose = require('mongoose');
 
 var express = require('express'),
     app = express();
@@ -26,6 +28,7 @@ if (cluster.isMaster) {
     app.use(helmet.hidePoweredBy({setTo: "Perl 2.0.0"}));
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
+    app.use(methodOverride('X-HTTP-Method-Override'));
 
     //confirm the request was received;
     router.use(function(req, res, next){

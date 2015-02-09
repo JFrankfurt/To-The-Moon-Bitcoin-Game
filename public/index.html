@@ -46,7 +46,7 @@
         var parent = document.getElementById("really");
         var child = document.getElementById("yeah");
         parent.removeChild(child);
-        var game = new Phaser.Game(800, 600, Phaser.AUTO,'ToTheMoon');
+        var game = new Phaser.Game(800, 600, Phaser.CANVAS,'ToTheMoon');
         game.state.add("Boot", Boot);
         game.state.add("Preload", Preload);
         game.state.add("MainMenu", mainMenu);
