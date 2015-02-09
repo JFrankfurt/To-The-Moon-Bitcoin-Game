@@ -141,44 +141,7 @@ Play.prototype = {
     },
 
     update: function () {
-        //  Reset the player, then check for movement keys
-        player.body.velocity.setTo(0, 0);
-
-        if (cursors.left.isDown) {
-            player.body.velocity.x = -2000;
-
-            if (flying != 'left') {
-                player.animations.play('left');
-                flying = 'left';
-                if (player.frame = 16) {
-                    player.animations.stop();
-                }
-            }
-        }
-        else if (cursors.right.isDown) {
-            player.body.velocity.x = 2000;
-
-            if (flying != 'right') {
-                player.animations.play('right');
-                flying = 'right';
-                if (player.frame = 17) {
-                    player.animations.stop();
-                }
-            }
-        }
-        else {
-            if (flying != 'still') {
-                player.animations.stop();
-
-                if (flying == 'still') {
-                    player.frame = 18;
-                }
-                else {
-                    player.frame = 18;
-                }
-                flying = 'still';
-            }
-        }
+        this.handleMovement();
         //  Firing?
         if (fireButton.isDown && lives.countLiving() > 0 && stateText.visible == false) {
                     this.fireBullet();
@@ -354,6 +317,40 @@ Play.prototype = {
             }
         }
     },
+    handleMovement: function () {
+        //  Reset the player, then check for movement keys
+        var maxVelocity = 1200;
+        if (cursors.left.isDown && player.body.velocity.x > -maxVelocity) {
+            if (flying != 'left') {
+                player.animations.play('left');
+                flying = 'left';
+                if (player.frame = 16) {
+                    player.animations.stop();
+                }
+            }
+            player.body.velocity.x -= 100;
+        }
+        else if (cursors.right.isDown && player.body.velocity.x < maxVelocity) {
+            if (flying != 'right') {
+                player.animations.play('right');
+                flying = 'right';
+                if (player.frame = 17) {
+                    player.animations.stop();
+                }
+            }
+            player.body.velocity.x += 100;
+        }
+        else {
+            player.frame = 18;
+            flying = 'still';
+            if (player.body.velocity.x > 0) {
+                player.body.velocity.x -= 10;
+            }
+            else if (player.body.velocity.x < 0) {
+                player.body.velocity.x += 10;
+            }
+        }
+    },
     gameOver: function(){
         stateText.text = "GAME OVER \n Enter to restart";
         stateText.visible = true;
@@ -397,6 +394,6 @@ Play.prototype = {
     levelComplete: function () {
         score += roundFinished;
         satoshis += Math.floor((Math.random() * roundFinished));
-        roundFinished += 1000;
+        roundFinished += 500;
     }
 };

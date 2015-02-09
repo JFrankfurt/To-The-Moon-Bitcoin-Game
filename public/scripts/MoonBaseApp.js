@@ -1,4 +1,4 @@
-var moonbase = angular.module("moonbase", ["ui.router", "app.game", "ngDialog"])
+var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
 
 .constant('url', 'http://www.moonbasegames.com/endgame')
 .config(function config($stateProvider) {

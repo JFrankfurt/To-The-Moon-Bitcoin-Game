@@ -17,3 +17,14 @@ angular.module('app.game', [])
         var that = this;
 
     })
+.factory('GameFactory', function() {
+        this.createGame = function () {
+            var game = new Phaser.Game(800, 600, Phaser.CANVAS,'ToTheMoon');
+            game.state.add("Boot", Boot);
+            game.state.add("Preload", Preload);
+            game.state.add("MainMenu", mainMenu);
+            game.state.add("Play", Play);
+            game.state.add("GameOver", GameOver);
+            game.state.start("Boot");
+        }
+    })
