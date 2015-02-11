@@ -1,21 +1,25 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
+var restful = require('node-restful'),
+    mongoose = restful.mongoose;
     ObjectId = Schema.ObjectId;
 
-
-var userSchema = new Schema({
-        email: {
-            type: String,
-            required: true
-        },
-        wallet: {
-            type: String,
-            required: true
-        },
-        balance: {
-            type: Number,
-            required: true
-        }
+//User schema
+var userSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true
+    },
+    wallet: {
+        type: String,
+        required: true
+    },
+    balance: {
+        type: Number,
+        required: true
+    },
+    cashout: {
+        type: Boolean,
+        required: true
+    }
     });
 
-module.exports = userSchema;
+module.exports = restful.model('Users', userSchema);
