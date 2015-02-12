@@ -1,5 +1,6 @@
 //dependencies
 var cluster = require('cluster'),
+    bson = require('bson'),
     numCPUs = require('os').cpus().length;
     request = require('request'),
     qs = require('querystring'),
