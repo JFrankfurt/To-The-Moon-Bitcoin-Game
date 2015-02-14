@@ -19,7 +19,11 @@ var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
             return $http.get(url + '/user', params)
                 .success(function(data, status, headers, config){
                     $scope.mounted = true;
-                    //on success we should handle the data we get from mongo (email address, all wallets associated with it, their current balances from our game)
+                    //on success we should handle the data we get from mongo
+                    //  email address
+                    //  all wallets associated with it
+                    //  their current balances from our game
+                    //should make data available
                 })
                 .error(function(data, status, headers, config) {
                     console.error('data=', data);
@@ -35,37 +39,15 @@ var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
                 address: address.q,
                 earned: earned.q
             };
-            return $http.get(url)
+            return $http.get(url + '/cashout', params)
+                .success(function(){})
+                .error(function(){})
         }
         return {
             mount: _mount,
             cashOut: _cashOut
         }
     }])
-    .service('makeCall', ['$http', 'url', function($http, url) {
-        function _sendCoin(address, earned) {
-
-        var earned = earned || {};
-        var address = address || {};
-
-        var params = {
-            address : address.q,
-            earned  : earned.q
-        };
-        return $http.get(url, params)
-            .success(function (data, status, headers, config) {
-            })
-            .error(function (data, status, headers, config) {
-                console.error('data=', data);
-                console.error('status=', status);
-                console.error('headers=', headers);
-                console.error('config=', config);
-            });
-        }
-        return {
-            sendCoin : _sendCoin
-        };
-    })
     .controller('MenuController', function MenuCtrl ($scope, $rootScope, mount, makeCall) {
         $scope.userParams = {
             earned: 0,
@@ -73,13 +55,12 @@ var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
             address: ' ',
             email: ' '
         };
-        $scope.mounted = false;
 
-        $scope.mountWallet = function () {
+        this.mountWallet = function () {
             makeCall.mount($scope.userParams.address, $scope.userParams.email);
             $scope.mounted = true;
         };
-        $scope.cashout = function () {
+        this.cashout = function () {
             makeCall.sendCoin($scope.userParams.address, $scope.userParams.earned);
         };
-    });
+    })
