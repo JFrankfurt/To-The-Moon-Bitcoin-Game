@@ -1,6 +1,5 @@
 //dependencies
 var cluster = require('cluster'),
-    bson = require('bson'),
     numCPUs = require('os').cpus().length;
     request = require('request'),
     qs = require('querystring'),
@@ -8,9 +7,9 @@ var cluster = require('cluster'),
     methodOverride = require('method-override'),
     _ = require('lodash'),
     helmet = require('helmet'),
-    mongoose = require('mongoose'),
     express = require('express'),
-    app = express();
+        mongoose = require('mongoose'),
+        app = express();
 
 //split process to number of cpus on machine
 if (cluster.isMaster) {

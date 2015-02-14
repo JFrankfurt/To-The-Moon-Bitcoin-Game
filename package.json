@@ -18,14 +18,14 @@
   "homepage": "https://github.com/JFrankfurt/Faucet",
   "dependencies": {
     "body-parser": "^1.11.0",
+    "bson": "0.2.18",
     "express": "^4.10.6",
     "helmet": "^0.6.0",
     "lodash": "^3.1.0",
     "method-override": "^2.3.1",
-    "mongoose": "3.8.10",
+    "mongoose": "^3.8.23",
     "node-restful": "^0.1.18",
-    "request": "^2.51.0",
-    "bson": "0.2.18"
+    "request": "^2.51.0"
   },
   "engines": {
     "npm": "2.3.x",

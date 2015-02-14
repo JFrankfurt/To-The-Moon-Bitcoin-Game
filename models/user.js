@@ -1,7 +1,5 @@
 var restful = require('node-restful'),
-    bson = require('bson'),
-    mongoose = restful.mongoose;
-    ObjectId = Schema.ObjectId;
+    mongoose = require('mongoose');
 
 //User schema
 var userSchema = new mongoose.Schema({

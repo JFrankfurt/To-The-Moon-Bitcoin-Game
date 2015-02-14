@@ -1,6 +1,6 @@
 var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
 
-.constant('url', 'http://www.moonbasegames.com/endgame')
+.constant('url', 'http://www.moonbasegames.com/api')
 .config(function config($stateProvider) {
     $stateProvider.state('', {
         url: '',
@@ -8,67 +8,78 @@ var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
         templateUrl: "../partials/main.html"
     })
 })
-.config(['ngDialogProvider', function(ngDialogProvider) {
-        ngDialogProvider.setDefaults({
-            className: 'ngdialog-theme-plain',
-            plain: true,
-            showClose: true,
-            closeByDocument: true,
-            closeByEscape: true,
-            appendTo: false,
-            preCloseCallback: function () {
-                //send user to main menu and reset score?
-            }
-        });
+    .service('mount', ['$http', 'url', function($http, url) {
+        function _mount (email, address) {
+            var email = email || {};
+            var address = address || {};
+            var params = {
+                email: email.q,
+                address: address.q
+            };
+            return $http.get(url + '/user', params)
+                .success(function(data, status, headers, config){
+                    $scope.mounted = true;
+                    //on success we should handle the data we get from mongo (email address, all wallets associated with it, their current balances from our game)
+                })
+                .error(function(data, status, headers, config) {
+                    console.error('data=', data);
+                    console.error('status=', status);
+                    console.error('headers=', headers);
+                    console.error('config=', config);
+                })
+        }
+        function _cashOut (address, earned) {
+            var address = address || {};
+            var earned = earned || {};
+            var params = {
+                address: address.q,
+                earned: earned.q
+            };
+            return $http.get(url)
+        }
+        return {
+            mount: _mount,
+            cashOut: _cashOut
+        }
     }])
-.service('makeCall', function($http, url) {
-    function _sendCoin(address, earned) {
+    .service('makeCall', ['$http', 'url', function($http, url) {
+        function _sendCoin(address, earned) {
 
-    var earned = earned || {};
-    var address = address || {};
+        var earned = earned || {};
+        var address = address || {};
 
-    var params = {
-        address : address.q,
-        earned  : earned.q
-    };
-    return $http.get(url, params)
-        .success(function (data, status, headers, config) {
-        })
-        .error(function (data, status, headers, config) {
-            console.log('data=', data);
-            console.log('status=', status);
-            console.log('headers=', headers);
-            console.log('config=', config);
-        });
-    }
-    return {
-        sendCoin : _sendCoin
-    };
-})
-.controller('MenuController', function MenuCtrl ($scope, $rootScope, ngDialog, makeCall) {
-    $scope.openModal = function () { //line 190 in ngDialog examples
-        ngDialog.openConfirm({
-            template: 'modalDialogId',
-            className: 'ngdialog-theme-default',
-            preCloseCallback: 'preCloseCallbackOnScope',
-            scope: $scope
-        }).then(function(value) {
-            //handle successful call
-        }, function (error) {
-            //handle error
-        });
-    };
-    $scope.wallet = {
-        earned: 0,
-        balance: 0,
-        address: ' '
-    };
-    $scope.mount = function () {
-        makeCall.sendCoin($scope.wallet.address);
-        $scope.showCashout = true;
-    };
-    $scope.cashout = function () {
-        makeCall.sendCoin($scope.wallet.address, $scope.wallet.earned);
+        var params = {
+            address : address.q,
+            earned  : earned.q
+        };
+        return $http.get(url, params)
+            .success(function (data, status, headers, config) {
+            })
+            .error(function (data, status, headers, config) {
+                console.error('data=', data);
+                console.error('status=', status);
+                console.error('headers=', headers);
+                console.error('config=', config);
+            });
+        }
+        return {
+            sendCoin : _sendCoin
+        };
+    })
+    .controller('MenuController', function MenuCtrl ($scope, $rootScope, mount, makeCall) {
+        $scope.userParams = {
+            earned: 0,
+            balance: 0,
+            address: ' ',
+            email: ' '
+        };
+        $scope.mounted = false;
 
-    };
-});
+        $scope.mountWallet = function () {
+            makeCall.mount($scope.userParams.address, $scope.userParams.email);
+            $scope.mounted = true;
+        };
+        $scope.cashout = function () {
+            makeCall.sendCoin($scope.userParams.address, $scope.userParams.earned);
+        };
+    });
