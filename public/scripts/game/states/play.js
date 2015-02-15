@@ -13,30 +13,28 @@ function Play(game) {}
     var flying = 'still';
     var bulletTime = 0;
     var bullets;
+    var bullet;
     var aliens;
-    var invader;
     var enemyBullets;
     var firingTimer = 0;
     var livingEnemies = [];
-//cashout button
 
+//cashout button
 var cashButton;
 
-//score
+var roundFinished = 1000;
+
     var score = 0;
+    var level = 1;
+    var satoshis = 0;
     var scoreText;
     var scoreString = '';
-    var roundFinished = 1000;
-
-//satoshis
-    var satoshis = 0;
     var satoshiText;
     var satoshiString = '';
-
-//level
-    var level = 1;
-    var levelString = '';
     var levelText;
+    var levelString = '';
+    //amount of time in ms the aliens wait between firing
+    var timeOffset = 1000;
 
 //sounds
     var enemyBulletSound;
@@ -53,8 +51,7 @@ Play.prototype = {
         this.background.tilePosition.x = 0;
         this.background.tilePosition.y = 0;
 
-
-        //  Our bullet group
+        //player bullets
         bullets = this.game.add.group();
         bullets.enableBody = true;
         bullets.physicsBodyType = Phaser.Physics.ARCADE;
@@ -64,7 +61,7 @@ Play.prototype = {
         bullets.setAll('outOfBoundsKill', true);
         bullets.setAll('checkWorldBounds', true);
 
-        // The enemy's bullets
+        //alien bullets
         enemyBullets = this.game.add.group();
         enemyBullets.enableBody = true;
         enemyBullets.physicsBodyType = Phaser.Physics.ARCADE;
@@ -74,7 +71,7 @@ Play.prototype = {
         enemyBullets.setAll('outOfBoundsKill', true);
         enemyBullets.setAll('checkWorldBounds', true);
 
-        //  The hero!
+        //player
         player = this.game.add.sprite(400, 560, 'SpriteSheet', 18);
         player.anchor.setTo(0.5, 0.5);
         player.enableBody = true;
@@ -86,34 +83,32 @@ Play.prototype = {
         player.body.bounce.x = 0.5;
         player.body.collideWorldBounds = true;
 
-        //  The baddies!
+        //aliens
         aliens = this.game.add.group();
         aliens.enableBody = true;
         aliens.physicsBodyType = Phaser.Physics.ARCADE;
         this.createAliens();
-
 
         //initialize sounds
         enemyBulletSound = this.game.add.audio('pew', 1, false);
         enemyBulletHitSound = this.game.add.audio('pew2', 1, false);
         playerHitSound = this.game.add.audio('playerhit', 1, false);
 
-        //  The score
+        //The score
         scoreString = 'Score : ';
         scoreText = this.game.add.text(10, 10, scoreString + score, {font: '34px Arial', fill: '#fff'});
 
-        // The level
+        //The level
         levelString = 'Level : ';
         levelText = this.game.add.text(10, 50, levelString + level, {font: '34px Arial', fill: '#fff'});
 
-        //  Lives
+        //Lives
         lives = this.game.add.group();
 
         //satoshis
         satoshiString = 'Satoshis : ';
         satoshiText = this.game.add.text(10, 90, satoshiString + satoshis, {font: '34px Arial', fill: '#fff'});
 
-        //Text
         stateText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, ' ', {
             font: '84px Arial',
             fill: '#fff'
@@ -128,12 +123,10 @@ Play.prototype = {
             ship.alpha = 0.8;
         }
 
-        //  An explosion pool
         explosions = this.game.add.group();
         explosions.createMultiple(15, 'SpriteSheet');
         explosions.forEach(this.setupExplosion);
 
-        //  And some controls to play the game with
         cursors = this.game.input.keyboard.createCursorKeys();
         fireButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         restartButton = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
@@ -142,28 +135,18 @@ Play.prototype = {
 
     update: function () {
         this.handleMovement();
-        //  Firing?
         if (fireButton.isDown && lives.countLiving() > 0 && stateText.visible == false) {
-                    this.fireBullet();
+            this.fireBullet();
         }
         if (this.game.time.now > firingTimer) {
             this.enemyFires();
         }
-        //restart button
         if (restartButton.isDown && lives.countLiving() == 0) {
-            this.game.state.start("MainMenu");
-            score = 0;
-            satoshis = 0;
-            level = 1;
-            levelText.text = levelString + level;
-            scoreText.text = scoreString + score;
-            satoshiText.text = satoshiString + satoshis;
+            this.restart();
         }
-        //next level button
         if (nextLevelButton.isDown && aliens.countLiving() === 0) {
             this.nextLevelRestart();
         }
-
         this.game.physics.arcade.overlap(bullets, aliens, this.collisionHandler, null, this);
         this.game.physics.arcade.overlap(enemyBullets, player, this.enemyBulletHitsPlayer, null, this);
         this.game.physics.arcade.overlap(aliens, player, this.enemyHitsPlayer, null, this);
@@ -182,13 +165,7 @@ Play.prototype = {
         aliens.x = 2;
         aliens.y = 50;
 
-        //  All this does is basically start the invaders moving. Notice we're moving the Group they belong to, rather than the invaders directly.
-
         var tween = this.game.add.tween(aliens).to( { x: 308 }, 2500, Phaser.Easing.Sinusoidal.InOut, true, 0, 1000, true);
-
-
-        //  When the tween loops it calls descend
-        tween.onLoop.add(this.strafe, this);
     },
     setupInvader: function(invader) {
         invader.anchor.x = 0.5;
@@ -197,17 +174,7 @@ Play.prototype = {
     setupExplosion: function(explosion) {
         explosion.animations.add('explode!', [5, 6, 7, 8, 9, 10, 11, 12, 13], 20, true);
     },
-    fireFucker: function() {
-        this.game.physics.arcade.moveToObject(enemyBullet, player, +1000);
-    },
-    strafe: function() {
-        firingTimer -= 100000000;
-        //this.game.physics.arcade.moveToObject(enemyBullet, player, +150);
-            //this.game.add.tween(aliens).to({y: aliens.y + 8}, 2500, Phaser.Easing.Linear.None, false, 0, 0, false);
-    },
-
     collisionHandler: function(bullet, alien) {
-        //  When a bullet hits an alien kill them both
         bullet.kill();
         alien.kill();
         score += 10;
@@ -228,8 +195,7 @@ Play.prototype = {
             bullets.callAll('kill');
             /*this button takes the player to the end game state.
             * We need to figure out how we handle cash outs
-            * Currently in the process of integrating the ngModal library for handling this...
-            * might not need a true end game state if we can do everything in a dialog box
+            * might not need a true end game state if we can do everything in a dialog box or off the screen
             * */
             cashButton = this.game.add.button(360, 400, "Start", this.endGame, this);
         }
@@ -247,7 +213,6 @@ Play.prototype = {
         explosion.reset(player.body.x, player.body.y);
         explosion.play('explode!', 30, false, true);
         playerHitSound.play();
-        // When the player dies
         if (lives.countLiving() < 1) {
             player.kill();
             enemyBullets.callAll('kill');
@@ -271,7 +236,6 @@ Play.prototype = {
         explosion.play('explode!', 30, false, true);
         playerHitSound.play();
 
-        // When the player dies
         if (lives.countLiving() === 1) {
             player.kill();
             gameOver();
@@ -282,35 +246,30 @@ Play.prototype = {
 
     },
     enemyFires: function() {
-        //  Grab the first bullet we can from the pool
+       /* ToDo: add some sort of inaccuracy to the alien's bullets (random x dimension deviation on moveToObject)
+       *  ToDo: add variation to fire timer (timeOffset)*/
         enemyBullet = enemyBullets.getFirstExists(false);
-
-        livingEnemies.length = 0;
+        livingEnemies = [];
 
         aliens.forEachAlive(function (alien) {
-
-            // put every living enemy in an array
             livingEnemies.push(alien);
         });
+
+
 
         if (enemyBullet && livingEnemies.length > 0) {
             enemyBulletSound.play();
             var random = this.game.rnd.integerInRange(0, livingEnemies.length - 1);
-            // randomly select one of them
             var shooter = livingEnemies[random];
-            // And fire the bullet from this enemy
             enemyBullet.reset(shooter.body.x, shooter.body.y);
             this.game.physics.arcade.moveToObject(enemyBullet, player, 1000);
-            firingTimer = this.game.time.now + 2000;
+            firingTimer = this.game.time.now + (timeOffset);
         }
     },
     fireBullet: function() {
-        //  To avoid them being allowed to fire too fast we set a time limit
         if (this.game.time.now > bulletTime) {
-            //  Grab the first bullet we can from the pool
             bullet = bullets.getFirstExists(false);
             if (bullet) {
-                //  And fire it
                 bullet.reset(player.x, player.y + 8);
                 bullet.body.velocity.y = -400;
                 bulletTime = this.game.time.now + 50;
@@ -318,7 +277,6 @@ Play.prototype = {
         }
     },
     handleMovement: function () {
-        //  Reset the player, then check for movement keys
         var maxVelocity = 1200;
         if (cursors.left.isDown && player.body.velocity.x > -maxVelocity) {
             if (flying != 'left') {
@@ -356,7 +314,6 @@ Play.prototype = {
         stateText.visible = true;
     },
     resetBullet: function(bullet){
-        //  Called if the bullet goes out of the screen
         bullet.kill();
     },
     resetAliens: function(alien) {
@@ -367,21 +324,19 @@ Play.prototype = {
         this.createAliens();
     },
     restart: function(){
-        //resets the life count
-        lives.callAll('revive');
-        //  And brings the aliens back from the dead :)
         aliens.removeAll();
-        this.createAliens();
-        //revives the player
-        player.revive();
+        stateText.visible = false;
+        this.game.state.start("MainMenu");
         score = 0;
+        satoshis = 0;
         level = 1;
         levelText.text = levelString + level;
         scoreText.text = scoreString + score;
-        //hides the text
-        stateText.visible = false;
+        satoshiText.text = satoshiString + satoshis;
     },
     nextLevelRestart: function() {
+        /*ToDo: increase rate at which aliens fire
+        * ToDo: */
         aliens.removeAll();
         this.createAliens();
         player.revive();
@@ -389,11 +344,10 @@ Play.prototype = {
         cashButton.visible = false;
         level += 1;
         levelText.text = levelString + level;
-
     },
     levelComplete: function () {
         score += roundFinished;
         satoshis += Math.floor((Math.random() * roundFinished));
-        roundFinished += 500;
+        roundFinished += 100;
     }
 };
