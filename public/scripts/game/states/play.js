@@ -35,6 +35,7 @@ var roundFinished = 1000;
     var levelString = '';
     //amount of time in ms the aliens wait between firing
     var timeOffset = 1000;
+    var fireLocation = {};
 
 //sounds
     var enemyBulletSound;
@@ -193,10 +194,8 @@ Play.prototype = {
             stateText.visible = true;
             satoshiText.text = satoshiString + satoshis;
             bullets.callAll('kill');
-            /*this button takes the player to the end game state.
-            * We need to figure out how we handle cash outs
-            * might not need a true end game state if we can do everything in a dialog box or off the screen
-            * */
+            /*ToDo: cashButton should update the $scope.earned variable for the cash out menu
+            */
             cashButton = this.game.add.button(360, 400, "Start", this.endGame, this);
         }
     },
@@ -251,11 +250,13 @@ Play.prototype = {
         enemyBullet = enemyBullets.getFirstExists(false);
         livingEnemies = [];
 
+        shotTimeRandomizer = timeOffset + (Math.floor(Math.random() * 100 * (Math.random() < 0.5 ? -1 : 1)));
+//        fireLocation.x = (player.x + 25) + (Math.floor(Math.random * 100 * (Math.random() < 0.5 ? -1 : 1)));
+//        fireLocation.y = player.y;
+
         aliens.forEachAlive(function (alien) {
             livingEnemies.push(alien);
         });
-
-
 
         if (enemyBullet && livingEnemies.length > 0) {
             enemyBulletSound.play();
@@ -333,6 +334,7 @@ Play.prototype = {
         levelText.text = levelString + level;
         scoreText.text = scoreString + score;
         satoshiText.text = satoshiString + satoshis;
+        timeOffset = 1000;
     },
     nextLevelRestart: function() {
         /*ToDo: increase rate at which aliens fire
@@ -344,6 +346,7 @@ Play.prototype = {
         cashButton.visible = false;
         level += 1;
         levelText.text = levelString + level;
+        timeOffset = timeOffset * 0.9;
     },
     levelComplete: function () {
         score += roundFinished;

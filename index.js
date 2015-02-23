@@ -21,6 +21,10 @@ if (cluster.isMaster) {
         cluster.fork();
     });
 } else {
+    process.on('uncaughtException', function(err) {
+        console.log(err);
+        process.kill();
+    });
     app.use(helmet());
     app.use(helmet.hidePoweredBy({setTo: "Perl 2.0.0"}));
     app.use(bodyParser.urlencoded({ extended: true }));
