@@ -1,38 +1,33 @@
 {
-  "name": "MoonBase_Faucet",
-  "version": "0.0.1",
-  "description": "A Bitcoin faucet game",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/JFrankfurt/Faucet.git"
-  },
-  "author": "Jordan Frankfurt",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/JFrankfurt/Faucet/issues"
-  },
-  "homepage": "https://github.com/JFrankfurt/Faucet",
-  "dependencies": {
-    "body-parser": "^1.11.0",
-    "bson": "0.2.18",
-    "express": "^4.10.6",
-    "helmet": "^0.6.0",
-    "lodash": "^3.1.0",
-    "method-override": "^2.3.1",
-    "mongoose": "^3.8.23",
-    "node-restful": "^0.1.18",
-    "request": "^2.51.0"
-    "mongoose": "^3.8.10",
-    "node-restful": "^0.1.18",
-    "request": "^2.51.0",
-    "bson": "^0.2.18"
-  },
-  "engines": {
-    "npm": "2.3.x",
-    "iojs": "1.0.x"
+    "name": "MoonBase_Faucet"
+  , "version": "0.0.1"
+  , "description": "A Bitcoin faucet game"
+  , "main": "index.js"
+  , "repository": {
+      "type": "git"
+    , "url": "https://github.com/JFrankfurt/Faucet.git"
+    }
+  , "author": "Jordan Frankfurt"
+  , "license": "ISC"
+  , "bugs": "https://github.com/JFrankfurt/Faucet/issues"
+  , "homepage": "https://github.com/JFrankfurt/Faucet"
+  ,  "dependencies": {
+      "body-parser": "^1.11.0"
+    , "bson": "0.2.18"
+    , "express": "^4.10.6"
+    , "helmet": "^0.6.0"
+    , "lodash": "^3.1.0"
+    , "method-override": "^2.3.1"
+    , "mongoose": "^3.8.23"
+    , "node-restful": "^0.1.18"
+    , "request": "^2.51.0"
+    , "mongoose": "^3.8.22"
+    , "node-restful": "^0.1.18"
+    , "request": "^2.51.0"
+    , "bson": "^0.2.18"
   }
+  , "engines": {
+      "npm": "2.3.x"
+    , "iojs": "1.0.x"
+    }
 }
