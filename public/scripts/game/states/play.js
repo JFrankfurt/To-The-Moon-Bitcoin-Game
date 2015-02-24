@@ -33,6 +33,7 @@ var roundFinished = 1000;
     var satoshiString = '';
     var levelText;
     var levelString = '';
+    var maxVelocity = 1000;
     //amount of time in ms the aliens wait between firing
     var timeOffset = 1000;
     var fireLocation = {};
@@ -278,8 +279,7 @@ Play.prototype = {
         }
     },
     handleMovement: function () {
-        var maxVelocity = 1200;
-        if (cursors.left.isDown && player.body.velocity.x > -maxVelocity) {
+        if (cursors.left.isDown) {
             if (flying != 'left') {
                 player.animations.play('left');
                 flying = 'left';
@@ -287,9 +287,11 @@ Play.prototype = {
                     player.animations.stop();
                 }
             }
-            player.body.velocity.x -= 100;
+            if (player.body.velocity.x >= -maxVelocity) {
+                player.body.velocity.x -= 100;
+            }
         }
-        else if (cursors.right.isDown && player.body.velocity.x < maxVelocity) {
+        else if (cursors.right.isDown) {
             if (flying != 'right') {
                 player.animations.play('right');
                 flying = 'right';
@@ -297,7 +299,9 @@ Play.prototype = {
                     player.animations.stop();
                 }
             }
-            player.body.velocity.x += 100;
+                if (player.body.velocity.x <= maxVelocity) {
+                    player.body.velocity.x += 100;
+                }
         }
         else {
             player.frame = 18;

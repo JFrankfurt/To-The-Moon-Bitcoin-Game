@@ -1,15 +1,11 @@
 //dependencies
 var cluster = require('cluster'),
     numCPUs = require('os').cpus().length;
-    request = require('request'),
-    qs = require('querystring'),
-    bodyParser = require('body-parser'),
-    methodOverride = require('method-override'),
-    _ = require('lodash'),
-    helmet = require('helmet'),
+
+var helmet = require('helmet'),
     express = require('express'),
-        mongoose = require('mongoose'),
-        app = express();
+    logger = require('morgan'),
+    app = express();
 
 //split process to number of cpus on machine
 if (cluster.isMaster) {
@@ -27,9 +23,9 @@ if (cluster.isMaster) {
     });
     app.use(helmet());
     app.use(helmet.hidePoweredBy({setTo: "Perl 2.0.0"}));
-    app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(bodyParser.json());
-    app.use(methodOverride('X-HTTP-Method-Override'));
+    app.use(logger('combined'));
+    //middleware
+
 
     //routes
     app.use('/api', require('./routes/api'));
