@@ -1,3 +1,5 @@
 module.exports = {
-    user: require('./user.js')
+    users: require('./user.js'),
+    orgs: require('./orgs.js'),
+    permissions: require('./permissions.js')
 };
