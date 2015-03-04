@@ -21,4 +21,4 @@ var userSchema = new mongoose.Schema({
     }
     });
 
-module.exports = restful.model('Users', userSchema);
+module.exports = restful.model('users', userSchema);
