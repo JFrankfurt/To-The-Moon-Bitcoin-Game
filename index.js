@@ -5,7 +5,7 @@ var cluster = require('cluster'),
 var helmet = require('helmet'),
     express = require('express'),
     logger = require('morgan'),
-    app = express();
+    app = express();1
 
 //split process to number of cpus on machine
 if (cluster.isMaster) {
