@@ -13,6 +13,7 @@
   "homepage": "https://github.com/JFrankfurt/Faucet",
   "dependencies": {
     "body-parser": "^1.11.0",
+    "chain-node": "^3.1.0",
     "express": "^4.10.6",
     "helmet": "^0.6.0",
     "mongoose": "^3.8.22",

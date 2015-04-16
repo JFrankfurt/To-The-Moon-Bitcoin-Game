@@ -5,7 +5,14 @@ var cluster = require('cluster'),
 var helmet = require('helmet'),
     express = require('express'),
     logger = require('morgan'),
-    app = express();1
+    Chain = require('chain-node'),
+    app = express();
+
+var chain = new Chain({
+    keyID: '2a65bfba18f80dd8f0bd141a668a8961',
+    keySecret: '535451d79e9e0ee18f95d24003ae24b0',
+    blockChain: 'bitcoin'
+});
 
 //split process to number of cpus on machine
 if (cluster.isMaster) {
