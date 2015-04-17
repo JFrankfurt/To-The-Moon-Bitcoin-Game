@@ -4,20 +4,21 @@ var restful = require('node-restful'),
 //User schema
 var userSchema = new mongoose.Schema({
     userName: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     password: {
-        type: /*buffer or binary something */'',
-        required: true
+      type: String,
+      required: true,
+      index: { unique: true }
     },
     email: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     wallet: {
-        type: Object,
-        required: true
+      type: Object,
+      required: true
     }
     });
 
