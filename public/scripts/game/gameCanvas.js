@@ -1,3 +1,4 @@
+(function() {
 angular.module('app.game', [])
     .directive('gameCanvas', function($injector) {
         return {
@@ -28,3 +29,4 @@ angular.module('app.game', [])
             game.state.start("Boot");
         }
     })
+})();

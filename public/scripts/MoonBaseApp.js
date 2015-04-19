@@ -1,3 +1,4 @@
+(function() {
 var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
 
 .constant('url', 'http://www.moonbasegames.com/api')
@@ -64,3 +65,4 @@ var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
             makeCall.sendCoin($scope.userParams.address, $scope.userParams.earned);
         };
     })
+})();
