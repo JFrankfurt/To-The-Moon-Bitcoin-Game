@@ -1,23 +1,23 @@
 (function() {
 angular.module('app.game', [])
-    .directive('gameCanvas', function($injector) {
-        return {
-            scope: {
-                score: score,
-                earned: satoshis,
-                lives: lives,
-                address: address,
-                mounted: mounted
-            },
-            bindToController: true,
-            controller: "CanvasCtrl as canvas",
-            template: "partials/main.html"
-        }
-    })
-    .controller('CanvasCtrl', function CanvasCtrl(){
-        var that = this;
+.directive('gameCanvas', function($injector) {
+  return {
+    scope: {
+      score: score,
+      earned: satoshis,
+      lives: lives,
+      address: address,
+      mounted: mounted
+    },
+    bindToController: true,
+    controller: "CanvasCtrl as canvas",
+    template: "partials/main.html"
+  }
+})
+.controller('CanvasCtrl', function CanvasCtrl(){
+  var that = this;
 
-    })
+})
 .factory('GameFactory', function() {
         this.createGame = function () {
             var game = new Phaser.Game(800, 600, Phaser.CANVAS,'ToTheMoon');
