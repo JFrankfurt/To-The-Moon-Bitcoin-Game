@@ -12,13 +12,13 @@
   "bugs": "https://github.com/JFrankfurt/Faucet/issues",
   "homepage": "https://github.com/JFrankfurt/Faucet",
   "dependencies": {
-    "body-parser": "^1.11.0",
-    "chain-node": "^3.1.0",
-    "express": "^4.10.6",
-    "helmet": "^0.6.0",
-    "mongoose": "^3.8.22",
-    "morgan": "^1.5.1",
-    "node-restful": "^0.1.18"
+    "body-parser": "~1.11.0",
+    "chain-node": "~3.1.0",
+    "express": "~4.10.6",
+    "helmet": "~0.6.0",
+    "mongoose": "~3.8.22",
+    "morgan": "~1.5.1",
+    "node-restful": "~0.1.18"
   },
   "engines": {
     "npm": "2.3.x",
