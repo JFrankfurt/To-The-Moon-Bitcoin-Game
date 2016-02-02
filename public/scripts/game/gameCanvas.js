@@ -22,16 +22,19 @@
   })
 
   .factory('gameFactory', function() {
-    game = {};
-    game.createGame = function () {
-      var game = new Phaser.Game(800, 600, Phaser.CANVAS,'ToTheMoon');
-      game.state.add("Boot", Boot);
-      game.state.add("Preload", Preload);
-      game.state.add("MainMenu", mainMenu);
-      game.state.add("Play", Play);
-      game.state.add("GameOver", GameOver);
-      game.state.start("Boot");
+    return {
+      init: function() {
+        var game = new Phaser.Game(800, 600, Phaser.CANVAS,'ToTheMoon');
+        game.state.add("Boot", Boot);
+        game.state.add("Preload", Preload);
+        game.state.add("MainMenu", mainMenu);
+        game.state.add("Play", Play);
+        game.state.add("GameOver", GameOver);
+        game.state.start("Boot");
+      },
+      destroy: function() {
+        game.destroy();
+      }
     }
-    return new game.createGame();
   })
 })();
