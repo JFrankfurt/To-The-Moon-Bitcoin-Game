@@ -7,6 +7,7 @@ var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
   $stateProvider.state('home', {
     url: '',
     templateUrl: '../partials/main.html'
+    controller: 'MenuController as menuCtrl'
   });
 })
 

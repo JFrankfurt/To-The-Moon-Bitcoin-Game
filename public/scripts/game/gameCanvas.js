@@ -1,5 +1,4 @@
-(function() {
-  angular.module('app.game', [])
+angular.module('app.game', [])
 
   .directive('gameCanvas', function($injector) {
     return {
@@ -36,5 +35,4 @@
         game.destroy();
       }
     }
-  })
-})();
+  });
