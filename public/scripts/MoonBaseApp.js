@@ -49,13 +49,15 @@ var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
             cashOut: _cashOut
         }
     }])
-    .controller('MenuController', function MenuCtrl ($scope, $rootScope, mount, makeCall) {
+    .controller('MenuController', function MenuCtrl ($scope, $rootScope, mount, makeCall, gameFactory) {
         $scope.userParams = {
             earned: 0,
             balance: 0,
             address: ' ',
             email: ' '
         };
+
+        $scope.game = gameFactory;
 
         this.mountWallet = function () {
             makeCall.mount($scope.userParams.address, $scope.userParams.email);

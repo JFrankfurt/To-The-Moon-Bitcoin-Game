@@ -46,29 +46,10 @@
     </div>
     <!-- /.container -->
   </nav>
-  <main>
+  <main class="col-md-8 col-md-offset-2">
     <ui-view></ui-view>
   </main>
 </body>
-<script async src="scripts/game/states/boot.js"></script>
-<script async src="scripts/game/states/preload.js"></script>
-<script async src="scripts/game/states/mainMenu.js"></script>
-<script async src="scripts/game/states/play.js"></script>
-<script async src="scripts/game/states/gameover.js"></script>
-<script>
-window.setTimeout(function () {
-  var parent = document.getElementById("game");
-  var child = document.getElementById("video");
-  parent.removeChild(child);
-  var game = new Phaser.Game(800, 600, Phaser.CANVAS,'ToTheMoon');
-  game.state.add("Boot", Boot);
-  game.state.add("Preload", Preload);
-  game.state.add("MainMenu", mainMenu);
-  game.state.add("Play", Play);
-  game.state.add("GameOver", GameOver);
-  game.state.start("Boot");
-}, 3400);
-</script>
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
