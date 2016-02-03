@@ -24,22 +24,22 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">To The Moon!</a>
+        <a class="navbar-brand" ui-sref="/index">To The Moon!</a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li>
-            <a href="#">About</a>
+            <a ui-sref="#">About</a>
           </li>
           <li>
-            <a href="#">How To Play</a>
+            <a ui-sref="#">How To Play</a>
           </li>
           <li>
-            <a href="#">Play</a>
+            <a ui-sref="#">Play</a>
           </li>
           <li>
-            <a href="#">Contact</a>
+            <a ui-sref="#">Contact</a>
           </li>
         </ul>
       </div>
@@ -50,7 +50,9 @@
 
   <!-- Main content -->
   <main class="container">
-    <div ui-view></div>
+    <ui-view>
+      <h1> Content should render here.</h1>
+    </ui-view>
   </main>
   <!-- /Main content -->
 

@@ -36,8 +36,6 @@ if (cluster.isMaster) {
 
 
     //routes
-    app.use('/api', require('./routes/api'));
-
     app.use(express.static(__dirname + '/public'));
     app.listen(process.env.PORT || 3000);
 }
