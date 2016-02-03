@@ -2,11 +2,11 @@ var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
-  $urlRouterProvider.otherwise('');
+  $urlRouterProvider.otherwise('/index');
 
-  $stateProvider.state('home', {
-    url: '',
-    templateUrl: '../partials/main.html'
+  $stateProvider.state('index', {
+    url: '/index',
+    templateUrl: 'partials/main.html',
     controller: 'MenuController as menuCtrl'
   });
 })
