@@ -1,22 +1,4 @@
 # ToTheMoon
-ToTheMoon is a Bitcoin web faucet video game designed by the MoonBase Games team:
-
-##Jordan Frankfurt: Co-founder & CEO
-Jordan's programming focus:
-  *IO.JS/Node.js
-  *Express
-  *MongoDB
-
-##Ryan Skinner: Co-founder & CTO
-Ryan focuses on being the lead game developer and integrating games with the rest of our stack:
-  *Express
-  *AngularJS
-  *Phaser.io
-
-##Phillip Chaffee: Web Developer
-The newest member of the team, Phillip focuses primarily on front end Web Development
-  *AngularJS
-
 
 ###AngularJS
 [Style Guide](https://github.com/johnpapa/angularjs-styleguide#single-responsibility)
