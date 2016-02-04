@@ -52,10 +52,16 @@ a:active {
 
 /* Define specifics */
 
-#game {
-  width: 800px;
-  height: 600px;
-  position: absolute;
-  background-color: #000000;
-  z-index: -1;
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #b3b3b3;
+}
+
+.main {
+  height: 100%;
+  width: auto;
+  background-color: #b3b3b3;
 }

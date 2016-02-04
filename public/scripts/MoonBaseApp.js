@@ -15,7 +15,18 @@ var moonbase = angular.module("moonbase", ["ui.router", "app.game"])
     .state('about', {
       url: '/about',
       templateUrl: 'partials/about.html'
+    })
+
+    .state('contact', {
+      url: '/contact',
+      templateUrl: 'partials/contact.html'
+    })
+
+    .state('login', {
+      url: '/login',
+      templateUrl: 'partials/login.html'
     });
+
 })
 
 .controller('MenuController', function($scope, $rootScope, gameFactory) {
