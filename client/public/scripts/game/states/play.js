@@ -5,6 +5,7 @@ function Play(game) {}
     var stateText;
     var restartButton;
     var nextLevelButton;
+    var playing = true;
 
 //bodies
     var player;
@@ -140,7 +141,7 @@ Play.prototype = {
         if (fireButton.isDown && lives.countLiving() > 0 && stateText.visible == false) {
             this.fireBullet();
         }
-        if (this.game.time.now > firingTimer) {
+        if (this.game.time.now > firingTimer && playing) {
             this.enemyFires();
         }
         if (restartButton.isDown && lives.countLiving() == 0) {
@@ -201,7 +202,8 @@ Play.prototype = {
         }
     },
     endGame: function () {
-      this.game.state.start("GameOver");
+        playing = false;
+        this.game.state.start("GameOver");
     },
     enemyBulletHitsPlayer: function(player, bullet) {
         bullet.kill();
@@ -315,6 +317,7 @@ Play.prototype = {
         }
     },
     gameOver: function(){
+        playing = false;
         stateText.text = "GAME OVER \n Enter to restart";
         stateText.visible = true;
     },
@@ -339,6 +342,7 @@ Play.prototype = {
         scoreText.text = scoreString + score;
         satoshiText.text = satoshiString + satoshis;
         timeOffset = 1000;
+        playing = true;
     },
     nextLevelRestart: function() {
         /*ToDo: increase rate at which aliens fire
@@ -351,8 +355,10 @@ Play.prototype = {
         level += 1;
         levelText.text = levelString + level;
         timeOffset = timeOffset * 0.9;
+        playing = true;
     },
     levelComplete: function () {
+        playing = false;
         score += roundFinished;
         satoshis += Math.floor((Math.random() * roundFinished));
         roundFinished += 100;
