@@ -1,51 +1,122 @@
-function Play(game) {}
-    var cursors;
-    var fireButton;
-    var explosions;
-    var stateText;
-    var restartButton;
-    var nextLevelButton;
-    var playing = true;
+var game = new Phaser.Game(800, 600, Phaser.CANVAS,'ToTheMoon');
+
+
+var gameMusic;
+
+let Boot = {
+    preload: function(){
+    },
+    create: function(){
+        //currently have audio starting on window load
+        /*gameMusic = this.game.add.audio('gameMuzic', 1, false);
+        gameMusic.play();*/
+        this.game.state.start("Preload");
+    }
+};
+
+let Preload = {
+    preload: function(){
+        this.game.load.atlasJSONHash('SpriteSheet', 'assets/SpreiteSheet1.png','assets/SpreiteSheet1.json');
+
+        this.game.load.image('bullet', 'assets/bitcoin-mini.png');
+        this.game.load.image('enemyBullet', 'assets/enemybullet2.jpg');
+        this.game.load.image('background', 'assets/background.png');
+        //this.game.load.image('logo', 'assets/Transparent Logo.png');
+        this.game.load.image('Start', 'assets/greybutton.png');
+
+        this.game.load.audio('pew', 'assets/InvaderBullet.wav');
+        this.game.load.audio('pew2', 'assets/InvaderHit.wav');
+        this.game.load.audio('playerhit', 'assets/ShipHit.wav');
+        this.game.load.audio('gameMuzic', 'assets/background.mp3');
+    },
+    create: function(){
+        this.game.state.start("MainMenu");
+    }
+};
+
+var stateText;
+var gameMusic;
+var text;
+var startButton;
+
+let mainMenu = {
+    create: function(){
+        this.background = this.game.add.tileSprite(0, 0, this.world.width, this.world.height, 'background');
+        this.background.autoScroll(-50, -20);
+        this.background.tilePosition.x = 0;
+        this.background.tilePosition.y = 0;
+        this.game.add.sprite(this.game.world.centerX - 118, 10, 'SpriteSheet', 19);
+        stateText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, ' ', {
+            font: '84px Arial',
+            fill: '#fff'
+        });
+        stateText.anchor.setTo(0.5, 0.5);
+        var playButton = this.game.add.button(360, 400, "Start", this.startGame, this);
+        this.title();
+        text = this.game.add.text(24, 10, "Play", {font: "16px Arial", fill: "#ffffff"});
+        playButton.addChild(text);
+        startButton = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+    },
+    update: function () {
+        if (startButton.isDown) {
+            this.startGame();
+        }
+    },
+    title: function () {
+        stateText.text = "To the Moon!";
+        stateText.visible = true;
+    },
+    startGame: function () {
+        this.game.state.start("Play");
+    }
+};
+var cursors;
+var fireButton;
+var explosions;
+var stateText;
+var restartButton;
+var nextLevelButton;
+var playing = true;
 
 //bodies
-    var player;
-    var alive;
-    var lives;
-    var flying = 'still';
-    var bulletTime = 0;
-    var bullets;
-    var bullet;
-    var aliens;
-    var enemyBullets;
-    var firingTimer = 0;
-    var livingEnemies = [];
+var player;
+var alive;
+var lives;
+var flying = 'still';
+var bulletTime = 0;
+var bullets;
+var bullet;
+var aliens;
+var enemyBullets;
+var firingTimer = 0;
+var livingEnemies = [];
 
 //cashout button
 var cashButton;
 
 var roundFinished = 1000;
 
-    var score = 0;
-    var level = 1;
-    var satoshis = 0;
-    var scoreText;
-    var scoreString = '';
-    var satoshiText;
-    var satoshiString = '';
-    var levelText;
-    var levelString = '';
-    var maxVelocity = 1000;
-    //amount of time in ms the aliens wait between firing
-    var timeOffset = 1000;
-    var fireLocation = {};
+var score = 0;
+var level = 1;
+var satoshis = 0;
+var scoreText;
+var scoreString = '';
+var satoshiText;
+var satoshiString = '';
+var levelText;
+var levelString = '';
+var maxVelocity = 1000;
+//amount of time in ms the aliens wait between firing
+var timeOffset = 1000;
+var fireLocation = {};
 
 //sounds
-    var enemyBulletSound;
-    var enemyBulletHitSound;
-    var playerHitSound;
+var enemyBulletSound;
+var enemyBulletHitSound;
+var playerHitSound;
 
 
-Play.prototype = {
+let Play = {
 
     create: function () {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -364,3 +435,8 @@ Play.prototype = {
         roundFinished += 100;
     }
 };
+game.state.add("Boot", Boot);
+game.state.add("Preload", Preload);
+game.state.add("MainMenu", mainMenu);
+game.state.add("Play", Play);
+game.state.start("Boot");
